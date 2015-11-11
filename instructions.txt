@@ -1,0 +1,12 @@
+for eclipse connecting with db
+
+right click project > properties > java build pass > Libraries 
+> add external JARs > find and select sqlite-jdbc-3.8.11.2.jar and click open 
+> click ok
+
+how to make db from sql
+
+open command promp > get to the right folder that has sqlite3 and ECHO.sql(using cd)
+> type sqlite3 > type .read ECHO.sql > .save ECHO.db
+
+move ECHO.db into project folder
