@@ -9,7 +9,6 @@ import java.util.Date;
 
 public class removeExpiredCoupons 
 {
-
 	public removeExpiredCoupons() throws Exception
 	{
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");

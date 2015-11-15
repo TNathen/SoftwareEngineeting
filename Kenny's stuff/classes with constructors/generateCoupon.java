@@ -24,7 +24,6 @@ public class generateCoupon
 			Date date = new Date();
 			String present=(dateFormat.format(date));
 			String expirationDate=String.valueOf(Long.parseLong(present)+10000);
-			System.out.println(expirationDate);
 
 			 
 	        Class.forName("org.sqlite.JDBC");
