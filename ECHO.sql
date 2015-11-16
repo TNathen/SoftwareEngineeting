@@ -23,8 +23,8 @@ PASS varchar(30)
 create table FLIGHTS(
 PLANE_ID varchar(10),
 FLIGHT_NUM varchar(10) primary key,
-START_LOC varchar(12),
-END_LOC varchar(12),
+START_LOC varchar(30),
+END_LOC varchar(30),
 PLANE_TYPE INT,
 FLIGHT_TIME DATETIME(0)
 );
