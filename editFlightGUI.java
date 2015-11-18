@@ -1,17 +1,23 @@
-import java.awt.event.*;
-import java.util.regex.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class AddFlightGUI extends JFrame implements ActionListener
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+
+public class editFlightGUI extends JFrame implements ActionListener
 {
     private final JLabel l1, l2, l3, l4, l5, l6, l7, l8;
     private final JTextField t1, t2, t3, t4, t5, t6, t7;
     private final JButton b1, b2, b3;
     //private final String validTime = "(1[012]|[1-9]):[0-5][0-9](\\s)?(?i)(am|pm)";
     
-    public AddFlightGUI()
+    public editFlightGUI()
     {
-        super("Add Flight");
+        super("edit Flight");
         setLayout(null);
         setSize(500, 500);
         setResizable(false);
@@ -33,7 +39,7 @@ public class AddFlightGUI extends JFrame implements ActionListener
         t5 = new JTextField();
         t6 = new JTextField();
         t7 = new JTextField();
-        b1 = new JButton("Add Flight");
+        b1 = new JButton("edit Flight");
         b2 = new JButton("Clear");
         b3 = new JButton("Exit");
         
@@ -129,9 +135,16 @@ public class AddFlightGUI extends JFrame implements ActionListener
                // {
                     //Code here to store information in database
                     try {
-						addFlight thisFlight=new addFlight(planeID,flightNum,startLoc,endLoc,basePricev,planeTypev,flightTime);
-	                    JOptionPane.showMessageDialog(this, "Flight Added");
-	                    dispose();
+						editFlight thisFlight=new editFlight(flightNum,planeID,startLoc,endLoc,basePricev,planeTypev,flightTime);
+						if (thisFlight.FlightNumExist()==true)
+						{
+		                    JOptionPane.showMessageDialog(this, "Flight has been edited");
+		                    dispose();
+						}
+						else
+						{
+		                    JOptionPane.showMessageDialog(this, "Flight number does not exist in the database");
+						}
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}

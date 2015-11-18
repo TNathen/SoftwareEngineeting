@@ -5,29 +5,17 @@ import java.util.*;
  * using the Luhn algorithm.*/
 
 public class CreditCardValidation {
+	static boolean valid=false;
+	public CreditCardValidation(String cardNum,String type){
 
-	public static void main(String args[]){
-		System.out.print("Please input credit card number:");
-		Scanner sc = new Scanner(System.in);
-		String cardNum = sc.next();
-		String type = null;	
-		if(isOnlyNum(cardNum)){
-			System.out.println("Input card type:");
-			System.out.println("- Visa");
-			System.out.println("- MasterCard");
-			System.out.println("- AmericanExpress");
-			System.out.println("- DiscoverCard");
-			type = sc.next();
-		}
 		if(isNumMatch(cardNum,type)){
 			if(isValidCard(cardNum)){
-				System.out.println("Your credit card is valid!");
-			}else{
-				System.out.println("Your credit card is not valid");
-			}
+				valid=true;
+				}else{
+				valid=false;			}
 		}else{
-			System.out.println("Your credit card is not valid");
-		}
+			valid=false;
+			}
 		
 	}
 	
@@ -58,7 +46,7 @@ public class CreditCardValidation {
 		}else if(type.equalsIgnoreCase("discovercard")){
 			return cardNum.length() == 16 && cardNum.substring(0,4).equalsIgnoreCase("6011");
 		}else{
-			System.out.println("Error - isNumMatch error");
+			//System.out.println("Error - isNumMatch error");
 			return false;
 		}
 	}
@@ -108,5 +96,9 @@ public class CreditCardValidation {
 		}else{
 			return true;
 		}
+	}
+	public static boolean isValid()
+	{
+		return valid;
 	}
 }

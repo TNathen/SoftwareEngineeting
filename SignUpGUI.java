@@ -26,7 +26,7 @@ public class SignUpGUI extends JFrame implements ActionListener
         setSize(500, 500);
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         l1 = new JLabel("Enter the following information to sign-up!");
         l2 = new JLabel("First name:");
@@ -196,9 +196,23 @@ public class SignUpGUI extends JFrame implements ActionListener
                                                 {
                                                     if(password1.equals(password2))
                                                     {
-                                                        JOptionPane.showMessageDialog(this, 
-                                                                "Thank you for signing up!");
                                                         //Code here to store information in database
+                                                        try {
+															addUser thisPerson=new addUser(email,password1,firstName,lastName,phoneNumber,dateOfBirth);
+															if(thisPerson.isSuccessful()==true)
+															{
+		                                                        JOptionPane.showMessageDialog(this, "Thank you for signing up!\nMake sure to login after signing up");
+		                                                        dispose();
+															}
+															else
+															{
+		                                                        JOptionPane.showMessageDialog(this, "Email is already in the database.");
+															}
+															
+															
+														} catch (Exception e1) {
+															e1.printStackTrace();
+														}
                                                     }
                                                     else
                                                     {
@@ -278,7 +292,7 @@ public class SignUpGUI extends JFrame implements ActionListener
         }
         else if(e.getSource()==b3)
         {
-            System.exit(0);
+            dispose();
         }
     }
     
