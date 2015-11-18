@@ -58,11 +58,19 @@ class AdminGUIFrame extends JFrame {
     p2.setLayout(new BoxLayout(p2, BoxLayout.X_AXIS));
 
     p1.setBorder(BorderFactory.createTitledBorder("Flights"));
+    viewAllFlight allF=new viewAllFlight();
+
+
+    Object rowData[][] = null;
+	try {
+		rowData = allF.AllTheFlight();
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+    boolean AllFComplete=allF.finish();
+    System.out.println(AllFComplete);
     
-    Object rowData[][] = { { "FLIGHT?", "DESTINATION?", "DEPT TIME?" },
-        { "Row2-Column1", "Row2-Column2", "Row2-Column3", "blah", "blah", "blah" },
-        { "blah", "blah", "blah",  "blah"} };
-    Object columnNames[] = { "Column One", "Column Two", "Column Three" };
+    Object columnNames[] = { "PLANE_ID", "FLIGHT_NUM", "START_LOC" ,"END_LOC","BASE_PRICE","PLANE_TYPE","FLIGHT_TIME"};
     JTable table = new JTable(rowData, columnNames);
     JScrollPane scrollable = new JScrollPane(table);
     
