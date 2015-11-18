@@ -18,6 +18,7 @@ import javax.swing.text.Document;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
 import javax.swing.JMenuBar;
@@ -45,7 +46,7 @@ class Flight_SeatingGUIFrame extends JFrame
     super("Flight Seating Assignment");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setSize(400,300);
-    JPanel mainframe = new JPanel();
+    final JPanel mainframe = new JPanel();
     
     //JToggleButton r1c1=new JToggleButton("Row1 Col1");
     //JToggleButton r1c2=new JToggleButton("Row1 Col2");
@@ -447,12 +448,19 @@ class Flight_SeatingGUIFrame extends JFrame
 	    		   index++;
 	    	   }
 	    	}
-
-        	try {
-				CheckoutGUI checkOut=new CheckoutGUI(SeatsNums,SeatPrices,SeatTypes,"flight1","u@ser.mail");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+        	if(SeatsNums.length==0)
+        	{
+            	JOptionPane.showMessageDialog(mainframe, "Require at least one seat be selected to move to the check out page.");
+        	}
+        	else
+        	{
+            	try {
+            		removeExpiredCoupons removeC = new removeExpiredCoupons();
+    				CheckoutGUI checkOut=new CheckoutGUI(SeatsNums,SeatPrices,SeatTypes,"flight1","");
+    			} catch (Exception e) {
+    				e.printStackTrace();
+    			}
+        	}
       }
     };
     submitbutton.addActionListener(submitlistener);

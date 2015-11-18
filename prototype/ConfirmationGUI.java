@@ -149,7 +149,11 @@ class ConfirmationGUIFrame extends JFrame {
 
         }
         //generate coupon
-
+        try {
+			generateCoupon makeCoupon=new generateCoupon (email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
         
         

@@ -16,6 +16,7 @@ import javax.swing.text.Document;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ButtonGroup;
 import javax.swing.JMenuBar;
@@ -43,12 +44,14 @@ class CheckoutGUIFrame extends JFrame {
 	 JRadioButton mastercard ;
 	 JRadioButton discover ;
 	 JRadioButton amex ;
-  public CheckoutGUIFrame(final int SeatNums[],final double SeatPrices[],final String SeatTypes[],final String flightNum,final String email)throws Exception {
+	 static String email;
+  public CheckoutGUIFrame(final int SeatNums[],final double SeatPrices[],final String SeatTypes[],final String flightNum, String Email)throws Exception {
     super("Checkout");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setSize(400,375);
     mainframe = new JPanel();
     
+    email=Email;
     
     JButton checkoutbutton=new JButton("Checkout");
     JButton cancelbutton=new JButton("Cancel");
@@ -129,6 +132,8 @@ class CheckoutGUIFrame extends JFrame {
         String address=addresstext.getText();
         String coupon=couponcode.getText();
         String cardType="";
+    	System.out.println(email);
+
         if(visa.isSelected()==true)
         {
         	cardType="visa";
@@ -159,23 +164,28 @@ class CheckoutGUIFrame extends JFrame {
 		}
         if(email.compareTo("")==0)
         {
-        	//login
+        	JOptionPane.showMessageDialog(mainframe, "Go back to the home page to login");
+        	//LoginGUI attemptLogin=new LoginGUI();
+        	//email=attemptLogin.getUserEmail();
+        	//System.out.println(email);
+
         }
         else if(address.compareTo("")==0)
         {
-        	//pop up that says enter address
+        	JOptionPane.showMessageDialog(mainframe, "Enter Address please.");
+
         }
         else if(creditCardValid==false)
         {
-        	//pop that says invalid creditcard information
+        	JOptionPane.showMessageDialog(mainframe, "Credit card information is invalid. \n Please try again.");
         }
         else if(coupon.compareTo("")!=0&&codeExist==false)
         {
-        	//pop up that says coupon code is not valid
+        	JOptionPane.showMessageDialog(mainframe, "Coupon code is invalid. \n Please try again.");
         }
         else if(coupon.compareTo("")!=0&&couponEmailMatch==false)
         {
-        	//pop up that says coupon does not belong to that user
+        	JOptionPane.showMessageDialog(mainframe, "Coupon code is does not belong to this user. \n Please try one that does belong to you.");
         }
         else
         {
