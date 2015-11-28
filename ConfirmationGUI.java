@@ -1,7 +1,5 @@
 import static java.awt.Component.LEFT_ALIGNMENT;
-import javax.swing.*;
-import java.awt.Dimension;
-import java.awt.event.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,18 +9,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
-import javax.swing.text.DefaultFormatter;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.ButtonGroup;
-import javax.swing.JMenuBar;
+
+
+import java.awt.event.*;
+import javax.swing.*;
 
 
 public class ConfirmationGUI{
@@ -38,14 +28,14 @@ public class ConfirmationGUI{
 }
 
 class ConfirmationGUIFrame extends JFrame {
-    
+	JPanel mainframe;
 
     
   public ConfirmationGUIFrame(final int SeatNums[],final double SeatPrices[],final String SeatTypes[],final String flightNum,final String email,final String address,final String creditcard,final String coupon) throws Exception{
     super("Flight Order Confirmation");
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setSize(400,375);
-    JPanel mainframe = new JPanel();
+    mainframe = new JPanel();
     
     JButton checkoutbutton=new JButton("Confirm");
     JButton cancelbutton=new JButton("Cancel");
@@ -155,14 +145,21 @@ class ConfirmationGUIFrame extends JFrame {
 
         }
         //generate coupon
-        /*try {
+        boolean coupon=false;
+        String theCode="";
+        try {
 			generateCoupon makeCoupon=new generateCoupon (email);
+			coupon=makeCoupon.createCoupon();
+			theCode=makeCoupon.getCode();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
+        if(coupon==true)
+        {
+        	String quote="For being a loyal customer, have a coupon for %10 off for your next purchase.\n\t\t\t"+theCode+"\nMake sure you save the code somewhere\nCoupon expire one year from today.";
+            JOptionPane.showMessageDialog(mainframe, quote);
+        }
 
-        
-        
         //stops entire program
         System.exit(0);
       }

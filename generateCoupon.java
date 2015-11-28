@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 
 public class generateCoupon 
 {
+	static boolean makeCoupon=false;
+	static String theCode="";
 	public generateCoupon(String email) throws Exception
 	{
 	    Class.forName("org.sqlite.JDBC");
@@ -20,13 +22,11 @@ public class generateCoupon
 	    
 	    
 	    
-	    if(moneySpent>5000)
+	    if(moneySpent>10000)
 	    {
-
 			boolean addToDB=false;
 			while (addToDB==false)
-			{
-			
+			{			
 				Random r = new Random();
 				String code = getLetter(r.nextInt(26)+1)+getLetter(r.nextInt(26)+1)+r.nextInt(10)+r.nextInt(10)+r.nextInt(10)+r.nextInt(10);
 			
@@ -52,12 +52,12 @@ public class generateCoupon
 		            stat.executeUpdate("INSERT INTO COUPONS (CODE,EMAIL,EXPIRATION_DATE,PERCENT) "
 		            		+"VALUES (\""+code+"\",\""+email+"\",\""+expirationDate+"\","+0.10+");"); 	
 		            addToDB=true;
+		            makeCoupon=true;
+		            theCode=code;
 		        }
-
+		        moneySpent-=10000;
+		        stat.executeUpdate("UPDATE USERS SET MONEYSPENT = '"+moneySpent+"' WHERE EMAIL = \""+email+"\";");
 			}
-			moneySpent-=5000;
-	        stat.executeUpdate("UPDATE USERS SET MONEYSPENT = '"+moneySpent+"' WHERE EMAIL = "+email+";");
-
 	    }
 	}
 	public static String getLetter(int a)
@@ -94,4 +94,13 @@ public class generateCoupon
 		}
 		return letter;
 	}
+	public static boolean createCoupon()
+	{
+		return makeCoupon;
+	}
+	public static String getCode()
+	{
+		return theCode;
+	}
 }
+
