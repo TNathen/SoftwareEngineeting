@@ -15,7 +15,7 @@ public class editFlightGUI extends JFrame implements ActionListener
     private final JButton b1, b2, b3;
     //private final String validTime = "(1[012]|[1-9]):[0-5][0-9](\\s)?(?i)(am|pm)";
     
-    public editFlightGUI()
+    public editFlightGUI(String PLANE_ID,String FLIGHT_NUM,String START_LOC,String END_LOC,String BASE_PRICE,String PLANE_TYPE,String FLIGHT_TIME)
     {
         super("edit Flight");
         setLayout(null);
@@ -84,6 +84,14 @@ public class editFlightGUI extends JFrame implements ActionListener
         add(b1);
         add(b2);
         add(b3);
+        
+        t1.setText(PLANE_ID);
+        t2.setText(FLIGHT_NUM);
+        t3.setText(START_LOC);
+        t4.setText(END_LOC);
+        t5.setText(BASE_PRICE);
+        t6.setText(PLANE_TYPE);
+        t7.setText(FLIGHT_TIME);
         
         setVisible(true);
     }

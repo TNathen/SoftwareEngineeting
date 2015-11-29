@@ -47,9 +47,9 @@ class Flight_SearchGUIFrame extends JFrame {
 
 	String flight;
     
-  public Flight_SearchGUIFrame(String select,String email) throws Exception {
+  public Flight_SearchGUIFrame(String select,final String email) throws Exception {
     super("Flight Search");
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setSize(400,600);
     JPanel mainframe = new JPanel();
 
@@ -97,7 +97,7 @@ class Flight_SearchGUIFrame extends JFrame {
         vector.add(x);
         data.add(vector);
     }
-    
+    conn.close();
     
     final JTable table = new JTable(data, columnNames);
 
@@ -125,7 +125,7 @@ class Flight_SearchGUIFrame extends JFrame {
         AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
         boolean selected = abstractButton.getModel().isSelected();
         try {
-        	Flight_SeatingGUI flightseatingGUI = new Flight_SeatingGUI(flight,"");
+        	Flight_SeatingGUI flightseatingGUI = new Flight_SeatingGUI(flight,email);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("panic");
@@ -138,9 +138,7 @@ class Flight_SearchGUIFrame extends JFrame {
     ActionListener cancellistener = new ActionListener() {
       public void actionPerformed(ActionEvent actionEvent) {
         AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
-        boolean selected = abstractButton.getModel().isSelected();
-        
-        
+        boolean selected = abstractButton.getModel().isSelected();    
         dispose();
       }
     };

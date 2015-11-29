@@ -41,7 +41,7 @@ class Flight_SeatingGUIFrame extends JFrame
 {
     static JToggleButton btn[]=new JToggleButton[60];
     boolean needsDiscount;
-  public Flight_SeatingGUIFrame(String flightNum, final String email) throws Exception
+  public Flight_SeatingGUIFrame(final String flightNum, final String email) throws Exception
   {
     super("Flight Seating Assignment");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

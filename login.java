@@ -5,15 +5,13 @@ import java.sql.Statement;
 
 public class login 
 {
-	static boolean emailInUserDB = false;
-	static boolean emailInAdminDB = false;
-	static boolean SuccessfulLogin = false;
-	static String fName="";
-	static String lName="";
+	boolean emailInUserDB = false;
+	boolean emailInAdminDB = false;
+	boolean SuccessfulLogin = false;
+	String fName="";
+	String lName="";
 	public login(String email, String pass) throws Exception 
 	{
-
-
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
         Statement stat = conn.createStatement();
@@ -27,7 +25,6 @@ public class login
         		emailInUserDB = true;
             	if (rs1.getString("PASS").compareToIgnoreCase(pass)==0)
             	{
-
                     fName = rs1.getString("FIRST_NAME");
                     lName = rs1.getString("LAST_NAME");
                     //replace with redirecting to the user page (send first & last name and email as parameters)
@@ -73,19 +70,19 @@ public class login
         }
         conn.close();
 	}
-	public static boolean loginsuccess()
+	public boolean loginsuccess()
 	{
 		return SuccessfulLogin;
 	}
-	public static boolean isUser()
+	public boolean isUser()
 	{
 		return emailInUserDB;
 	}
-	public static boolean isAdmin()
+	public boolean isAdmin()
 	{
 		return emailInUserDB;
 	}
-	public static String getName()
+	public String getName()
 	{
 		return fName+" "+lName;
 	}

@@ -48,14 +48,14 @@ class CheckoutGUIFrame extends JFrame {
 	 JRadioButton mastercard ;
 	 JRadioButton discover ;
 	 JRadioButton amex ;
-	 static String email;
+	 String email[]=new String[1];
   public CheckoutGUIFrame(final int SeatNums[],final double SeatPrices[],final String SeatTypes[],final String flightNum, String Email)throws Exception {
     super("Checkout");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setSize(400,375);
     mainframe = new JPanel();
     
-    email=Email;
+    email[0]=Email;
     
     JButton checkoutbutton=new JButton("Checkout");
     JButton cancelbutton=new JButton("Cancel");
@@ -159,20 +159,17 @@ class CheckoutGUIFrame extends JFrame {
         boolean codeExist=false;
         checkCoupon checkTheCoupon;
 		try {
-			checkTheCoupon = new checkCoupon(coupon,email);
+			checkTheCoupon = new checkCoupon(coupon,email[0]);
 	        couponEmailMatch=checkTheCoupon.perfectMatch();
 	        codeExist=checkTheCoupon.codeMatch();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        if(email.compareTo("")==0)
+        if(email[0].compareTo("")==0)
         {
         	//JOptionPane.showMessageDialog(mainframe, "Go back to the home page to login");
-        	LoginGUI attemptLogin=new LoginGUI();
+        	LoginGUI attemptLogin=new LoginGUI(email);
 			
-        	email=attemptLogin.getUserEmail();
-        	//System.out.println(email);
-
         }
         else if(address.compareTo("")==0)
         {
@@ -202,7 +199,7 @@ class CheckoutGUIFrame extends JFrame {
         			newPrices[a]=SeatPrices[a]*.9;
         		}
         		try {
-					ConfirmationGUI Confirm=new ConfirmationGUI(SeatNums,newPrices, SeatTypes, flightNum, email,address,CreditCardNum,coupon);
+					ConfirmationGUI Confirm=new ConfirmationGUI(SeatNums,newPrices, SeatTypes, flightNum, email[0],address,CreditCardNum,coupon);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -211,7 +208,7 @@ class CheckoutGUIFrame extends JFrame {
         	{
         		//do not apply coupon then send all info to confirmation page
         		try {
-					ConfirmationGUI Confirm=new ConfirmationGUI(SeatNums,SeatPrices, SeatTypes, flightNum, email,address,CreditCardNum,coupon);
+					ConfirmationGUI Confirm=new ConfirmationGUI(SeatNums,SeatPrices, SeatTypes, flightNum, email[0],address,CreditCardNum,coupon);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

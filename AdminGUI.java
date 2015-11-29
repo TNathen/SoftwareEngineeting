@@ -12,6 +12,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.Document;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -36,8 +38,15 @@ public class AdminGUI{
 
 class AdminGUIFrame extends JFrame {
     
-  
-    
+	JTable table;
+    String PLANE_ID="";
+    String FLIGHT_NUM="";
+    String START_LOC="";
+    String END_LOC ="";
+    String BASE_PRICE = "0.0";
+    String PLANE_TYPE="1";
+    String FLIGHT_TIME="";
+	
   public AdminGUIFrame() {
     super("Admin Menu");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,7 +80,7 @@ class AdminGUIFrame extends JFrame {
     System.out.println(AllFComplete);
     
     Object columnNames[] = { "PLANE_ID", "FLIGHT_NUM", "START_LOC" ,"END_LOC","BASE_PRICE","PLANE_TYPE","FLIGHT_TIME"};
-    JTable table = new JTable(rowData, columnNames);
+    table = new JTable(rowData, columnNames);
     JScrollPane scrollable = new JScrollPane(table);
     
     
@@ -95,7 +104,7 @@ class AdminGUIFrame extends JFrame {
         AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
         boolean selected = abstractButton.getModel().isSelected();
         System.out.println("DELETE button has been clicked");
-        deleteFlightGUI deleteF=new deleteFlightGUI();
+        deleteFlightGUI deleteF=new deleteFlightGUI(FLIGHT_NUM);
       }
     };
     deleteflightbutton.addActionListener(deletelistener);
@@ -106,7 +115,7 @@ class AdminGUIFrame extends JFrame {
         AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
         boolean selected = abstractButton.getModel().isSelected();
         System.out.println("EDIT button has been clicked");
-        editFlightGUI editF=new editFlightGUI();
+        editFlightGUI editF=new editFlightGUI(PLANE_ID,FLIGHT_NUM,START_LOC,END_LOC,BASE_PRICE,PLANE_TYPE,FLIGHT_TIME);
       }
     };
     editflightbutton.addActionListener(editlistener);
@@ -132,5 +141,23 @@ class AdminGUIFrame extends JFrame {
       }
     };
     donebutton.addActionListener(donelistener);
+    
+    table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+        public void valueChanged(ListSelectionEvent event) {
+            // do some actions here, for example
+            // print first column value from selected row
+            FLIGHT_NUM = table.getValueAt(table.getSelectedRow(), 1).toString();
+            
+            PLANE_ID=table.getValueAt(table.getSelectedRow(), 0).toString();
+            START_LOC=table.getValueAt(table.getSelectedRow(), 2).toString();
+            END_LOC =table.getValueAt(table.getSelectedRow(), 3).toString();
+            BASE_PRICE = table.getValueAt(table.getSelectedRow(), 4).toString();
+            PLANE_TYPE=table.getValueAt(table.getSelectedRow(), 5).toString();
+            FLIGHT_TIME=table.getValueAt(table.getSelectedRow(), 6).toString();
+            
+            System.out.println(FLIGHT_NUM);
+        }
+    });
+    
   }
 }

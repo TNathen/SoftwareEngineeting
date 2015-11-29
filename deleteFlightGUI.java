@@ -15,7 +15,7 @@ public class deleteFlightGUI extends JFrame implements ActionListener
     private final JTextField t1;
     private final JButton b1, b2, b3;
     private static String TheEmail="";
-    public deleteFlightGUI()
+    public deleteFlightGUI(String flightNum)
     {
         super("delete Flight");
         setLayout(null);
@@ -51,6 +51,8 @@ public class deleteFlightGUI extends JFrame implements ActionListener
         add(b2);
         add(b3);
 
+        t1.setText(flightNum);
+        
         setVisible(true);
         }
 
@@ -63,7 +65,14 @@ public class deleteFlightGUI extends JFrame implements ActionListener
             
             try {
 				deleteFlight thisFlight=new deleteFlight(FlightNum);
-                JOptionPane.showMessageDialog(this, "Flight has been deleted");
+				if(thisFlight.complete()==true)
+				{
+	                JOptionPane.showMessageDialog(this, "Flight has been deleted");
+				}
+				else
+				{
+	                JOptionPane.showMessageDialog(this, "Flight number does not exist");
+				}
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -82,6 +91,6 @@ public class deleteFlightGUI extends JFrame implements ActionListener
     }
     public static void main(String[] args)
     {
-        deleteFlightGUI deleteFlightGUI = new deleteFlightGUI();
+        deleteFlightGUI deleteFlightGUI = new deleteFlightGUI("");
     }
 }

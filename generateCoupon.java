@@ -59,6 +59,7 @@ public class generateCoupon
 		        stat.executeUpdate("UPDATE USERS SET MONEYSPENT = '"+moneySpent+"' WHERE EMAIL = \""+email+"\";");
 			}
 	    }
+	    conn.close();
 	}
 	public static String getLetter(int a)
 	{

@@ -6,7 +6,7 @@ public class AddFlightGUI extends JFrame implements ActionListener
 {
     private final JLabel l1, l2, l3, l4, l5, l6, l7, l8;
     private final JTextField t1, t2, t3, t4, t5, t6, t7;
-    private final JButton b1, b2, b3;
+    private final JButton b1, b2, b3, b4;
     //private final String validTime = "(1[012]|[1-9]):[0-5][0-9](\\s)?(?i)(am|pm)";
     
     public AddFlightGUI()
@@ -36,21 +36,27 @@ public class AddFlightGUI extends JFrame implements ActionListener
         b1 = new JButton("Add Flight");
         b2 = new JButton("Clear");
         b3 = new JButton("Exit");
-        
+        b4 = new JButton("Create Number");
+
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
-        
+        b4.addActionListener(this);
+
         l1.setBounds(170, 10, 500, 30);
         l2.setBounds(30, 50, 200, 30);
+        
         l3.setBounds(30, 100, 200, 30);
+        
         l4.setBounds(30, 150, 200, 30);
         l5.setBounds(30, 200, 200, 30);
         l6.setBounds(30, 250, 200, 30);
         l7.setBounds(30, 300, 200, 30);
         l8.setBounds(30, 350, 200, 30);
         t1.setBounds(250, 50, 200, 30);
+        
         t2.setBounds(250, 100, 200, 30);
+        
         t3.setBounds(250, 150, 200, 30);
         t4.setBounds(250, 200, 200, 30);
         t5.setBounds(250, 250, 200, 30);
@@ -59,6 +65,9 @@ public class AddFlightGUI extends JFrame implements ActionListener
         b1.setBounds(40, 400, 100, 30);
         b2.setBounds(190, 400, 100, 30);
         b3.setBounds(340, 400, 100, 30);
+        
+        b4.setBounds(120,100,130,30);
+
         
         add(l1);
         add(l2);
@@ -78,7 +87,7 @@ public class AddFlightGUI extends JFrame implements ActionListener
         add(b1);
         add(b2);
         add(b3);
-        
+        add(b4);
         setVisible(true);
     }
 
@@ -129,7 +138,7 @@ public class AddFlightGUI extends JFrame implements ActionListener
                // {
                     //Code here to store information in database
                     try {
-						addFlight thisFlight=new addFlight(planeID,flightNum,startLoc,endLoc,basePricev,planeTypev,flightTime);
+						AddFlight thisFlight=new AddFlight(planeID,flightNum,startLoc,endLoc,basePricev,planeTypev,flightTime);
 	                    JOptionPane.showMessageDialog(this, "Flight Added");
 	                    dispose();
 					} catch (Exception e1) {
@@ -157,6 +166,16 @@ public class AddFlightGUI extends JFrame implements ActionListener
         else if(e.getSource()==b3)
         {
             dispose();
+        }
+        else if(e.getSource()==b4)
+        {
+        	FlightNumGenerator num;
+			try {
+				num = new FlightNumGenerator();
+	            t2.setText(num.getFlightNum());
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
         }
     }
     

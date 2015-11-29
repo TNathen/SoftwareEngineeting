@@ -5,12 +5,12 @@ import javax.swing.*;
 
 public class LoginGUI extends JFrame implements ActionListener
 {
-    private final JLabel l1, l2, l3;
-    private final JTextField t1;
-    private final JPasswordField p1;
-    private final JButton b1, b2, b3;
-    private static String TheEmail="";
-    public LoginGUI()
+    private JLabel l1, l2, l3;
+    private JTextField t1;
+    private JPasswordField p1;
+    private JButton b1, b2, b3;
+    String copyEmail[];
+    public LoginGUI(String[] TheEmail)
     {
         super("Log In");
         setLayout(null);
@@ -19,6 +19,8 @@ public class LoginGUI extends JFrame implements ActionListener
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        copyEmail=TheEmail;
+        
         l1 = new JLabel("Log into your account.");
         l2 = new JLabel("E-mail:");
         l3 = new JLabel("Password:");
@@ -71,10 +73,7 @@ public class LoginGUI extends JFrame implements ActionListener
             }
             else
             {
-                //Code here to verify login credentials from database
-            	int counter=0;
-            	while(counter<2)
-            	{
+
             		
             	
             	try {
@@ -83,15 +82,13 @@ public class LoginGUI extends JFrame implements ActionListener
 					{
 						if(attemptLogin.isUser()==true)
 						{
-							TheEmail=email;
-							System.out.println(email+909090);
-			                if(counter==1)JOptionPane.showMessageDialog(this, "Welcome, "+attemptLogin.getName()+"\nYou have successfully logged in");
-			                
+							System.out.println(email);
+							getUserEmail(email);
+			                JOptionPane.showMessageDialog(this, "Welcome, "+attemptLogin.getName()+"\nYou have successfully logged in");
 						}
 						else
 						{
-							AdminGUI admin=new AdminGUI();
-							
+							AdminGUI admin=new AdminGUI();	
 						}
 						dispose();
 					}
@@ -102,8 +99,6 @@ public class LoginGUI extends JFrame implements ActionListener
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-            	counter++;
-            	}
             }
         }
         else if(e.getSource()==b2)
@@ -116,8 +111,8 @@ public class LoginGUI extends JFrame implements ActionListener
             dispose();
         }
     }
-    public static String getUserEmail()
+    public void getUserEmail(String email)
     {
-    	return TheEmail;
+    	copyEmail[0]=email; 
     }
 }
