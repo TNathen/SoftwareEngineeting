@@ -11,7 +11,7 @@ public class viewDatabase {
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
         Statement stat = conn.createStatement();
-         
+
         ResultSet rs1 = stat.executeQuery("select * from ADMINS;");
         System.out.println("ADMINS table");
         while (rs1.next()) 
@@ -31,7 +31,7 @@ public class viewDatabase {
         }
         System.out.println("");
         rs2.close();
-        
+        /*
         ResultSet rs3 = stat.executeQuery("select * from FLIGHTS;");
         System.out.println("FLIGHTS table");
         while (rs3.next()) 
@@ -43,7 +43,9 @@ public class viewDatabase {
         System.out.println("");
         rs3.close();
            
-        
+        */
+        stat.executeUpdate("UPDATE TICKETS SET U_EMAIL = 'work@mail.com' WHERE U_EMAIL = \"u@ser.mail\";");
+
         ResultSet rs4 = stat.executeQuery("select * from TICKETS;");
         System.out.println("TICKETS table");
         while (rs4.next()) 

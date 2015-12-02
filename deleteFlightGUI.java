@@ -71,7 +71,14 @@ public class deleteFlightGUI extends JFrame implements ActionListener
 				}
 				else
 				{
-	                JOptionPane.showMessageDialog(this, "Flight number does not exist");
+					if(thisFlight.foundFlight()==false)
+					{
+		                JOptionPane.showMessageDialog(this, "Flight number does not exist");
+					}
+					else
+					{
+		                JOptionPane.showMessageDialog(this, "People have already bought tickets for this flight");
+					}
 				}
 			} catch (Exception e1) {
 				e1.printStackTrace();

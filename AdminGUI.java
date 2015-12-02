@@ -43,13 +43,13 @@ class AdminGUIFrame extends JFrame {
     String FLIGHT_NUM="";
     String START_LOC="";
     String END_LOC ="";
-    String BASE_PRICE = "0.0";
-    String PLANE_TYPE="1";
+    String BASE_PRICE = "";
+    String PLANE_TYPE="";
     String FLIGHT_TIME="";
 	
   public AdminGUIFrame() {
     super("Admin Menu");
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setSize(400,500);
     JPanel mainframe = new JPanel();
     
@@ -76,8 +76,6 @@ class AdminGUIFrame extends JFrame {
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
-    boolean AllFComplete=allF.finish();
-    System.out.println(AllFComplete);
     
     Object columnNames[] = { "PLANE_ID", "FLIGHT_NUM", "START_LOC" ,"END_LOC","BASE_PRICE","PLANE_TYPE","FLIGHT_TIME"};
     table = new JTable(rowData, columnNames);

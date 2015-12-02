@@ -7,6 +7,7 @@ import java.sql.Statement;
 public class deleteFlight 
 {
     boolean flightNumExist=false;
+    boolean ticketBought=false;
 	public deleteFlight(String flightNum) throws Exception
 	{
 		Class.forName("org.sqlite.JDBC");
@@ -22,7 +23,18 @@ public class deleteFlight
         	}
         }
         rs.close();	
-        if (flightNumExist == true)
+        
+        ResultSet rs1 = stat.executeQuery("select * from TICKETS;");
+        while (rs1.next()) 
+        {
+        	if (rs1.getString("FLIGHT_NUM").compareToIgnoreCase(flightNum)==0)
+        	{
+        		ticketBought=true;
+        	}
+        }
+        rs1.close();	
+        
+        if (flightNumExist == true && ticketBought==false)
         {
             stat.executeUpdate("DELETE from FLIGHTS WHERE FLIGHT_NUM = \""+flightNum+"\";");
         }
@@ -31,6 +43,21 @@ public class deleteFlight
 	}
 	public boolean complete()
 	{
+		if(flightNumExist == true && ticketBought==false)
+		{
+			return flightNumExist;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public boolean foundFlight()
+	{
 		return flightNumExist;
+	}
+	public boolean TicketsForFlight()
+	{
+		return ticketBought;
 	}
 }

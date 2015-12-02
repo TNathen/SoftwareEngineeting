@@ -1,34 +1,47 @@
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.regex.*;
-import javax.swing.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class SignUpGUI extends JFrame implements ActionListener
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+
+public class editUserGUI extends JFrame implements ActionListener
 {
-    private final JLabel l1, l2, l3, l4, l5, l6, l7, l8;
-    private final JTextField t1, t2, t3, t4, t5;
-    private final JPasswordField p1, p2;
-    private final JButton b1, b2, b3;
-    private final String validName = "[a-zA-Z]+";
-    private final String validDOB = "^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$";
-    private final String validEmail = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\."
+    private JLabel l1, l2, l3, l4, l5, l6, l7, l8;
+    private JTextField t1, t2, t3, t4, t5;
+    private JPasswordField p1, p2;
+    private JButton b1, b2, b3;
+    private String validName = "[a-zA-Z]+";
+    private String validDOB = "^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$";
+    private String validEmail = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\."
             + "[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
     private final String validPhone = "^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})"
             + "[-.\\s]?([0-9]{4})$";
     private final String validPassword = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})";
-    
-    public SignUpGUI()
+    String email;
+    public editUserGUI(String TheEmail) throws Exception
     {
-        super("Sign-Up Form");
+        super("Edit Account");
         setLayout(null);
         setSize(500, 500);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        l1 = new JLabel("Enter the following information to sign-up!");
+        l1 = new JLabel("Enter the following information to edit account");
         l2 = new JLabel("First name:");
         l3 = new JLabel("Last name:");
         l4 = new JLabel("Date of Birth:");
@@ -43,9 +56,11 @@ public class SignUpGUI extends JFrame implements ActionListener
         t5 = new JTextField();
         p1 = new JPasswordField();
         p2 = new JPasswordField();
-        b1 = new JButton("Sign Up");
+        b1 = new JButton("Edit");
         b2 = new JButton("Clear");
         b3 = new JButton("Exit");
+        
+        email=TheEmail;
         
         l4.setToolTipText("<html><p>Use the following format:</p>"
                 + "<p>mm/dd/yyyy</p></html>");
@@ -111,6 +126,23 @@ public class SignUpGUI extends JFrame implements ActionListener
         add(b2);
         add(b3);
         
+        Class.forName("org.sqlite.JDBC");
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
+        Statement stat = conn.createStatement();
+		        
+        ResultSet rs = stat.executeQuery("select * from USERS where EMAIL = \""+email+"\" ;");
+        while (rs.next()) 
+        {
+            p1.setText(rs.getString("PASS"));
+            p2.setText(rs.getString("PASS"));
+        	t1.setText(rs.getString("FIRST_NAME"));
+        	t2.setText(rs.getString("LAST_NAME"));
+        	t3.setText(rs.getString("DOB"));
+            t4.setText(rs.getString("EMAIL"));
+        	t5.setText(rs.getString("PHONE"));
+        }
+        rs.close();
+        conn.close();
         setVisible(true);
     }
 
@@ -123,13 +155,21 @@ public class SignUpGUI extends JFrame implements ActionListener
             String firstName = t1.getText();
             String lastName = t2.getText();
             String dateOfBirth = t3.getText();
-            String email = t4.getText();
+            String newEmail = t4.getText();
             String phoneNumber = t5.getText();
             char[] pw1 = p1.getPassword();
             char[] pw2 = p2.getPassword();
             String password1 = String.valueOf(pw1);
             String password2 = String.valueOf(pw2);
+            
+            System.out.println(firstName);
+            System.out.println(lastName);
             System.out.println(dateOfBirth);
+            System.out.println(newEmail);
+            System.out.println(phoneNumber);
+
+
+            
             Pattern namePattern = Pattern.compile(validName);
             Matcher firstNameMatcher = namePattern.matcher(firstName);
             if("".equals(firstName))
@@ -198,17 +238,26 @@ public class SignUpGUI extends JFrame implements ActionListener
                                                     {
                                                         //Code here to store information in database
                                                         try {
-															addUser thisPerson=new addUser(email,password1,firstName,lastName,phoneNumber,dateOfBirth);
-															if(thisPerson.isSuccessful()==true)
+                                                        	if(newEmail.compareToIgnoreCase(email)==0)
+                                                        	{
+    															editUser thisPerson=new editUser(email,password1,firstName,lastName,phoneNumber,dateOfBirth);
+		                                                        JOptionPane.showMessageDialog(this, "Account has been edited");
+    															dispose();
+                                                        	}
+                                                        	else
 															{
-		                                                        JOptionPane.showMessageDialog(this, "Thank you for signing up!\nMake sure to login after signing up");
-		                                                        dispose();
-															}
-															else
-															{
-		                                                        JOptionPane.showMessageDialog(this, "Email is already in the database.");
-															}
-															
+    															replaceUser thisPerson=new replaceUser(newEmail,email,password1,firstName,lastName,phoneNumber,dateOfBirth);
+    															System.out.println(thisPerson.isSuccessful());
+                                                        		if(thisPerson.isSuccessful()==true)//new email not in data base
+                                                        		{
+    		                                                        JOptionPane.showMessageDialog(this, "Account has been edited");
+    		                                                        dispose();
+                                                        		}
+                                                        		else
+                                                        		{
+    		                                                        JOptionPane.showMessageDialog(this, "Email is already in the database.");
+                                                        		}
+															}												
 															
 														} catch (Exception e1) {
 															e1.printStackTrace();
@@ -298,6 +347,10 @@ public class SignUpGUI extends JFrame implements ActionListener
     
     public static void main(String[] args)
     {
-        SignUpGUI signUpGUI = new SignUpGUI();
-    }    
+    	try {
+			editUserGUI editGUI = new editUserGUI("bork@mail.com");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    } 
 }

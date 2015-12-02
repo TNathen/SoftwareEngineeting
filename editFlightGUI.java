@@ -144,14 +144,18 @@ public class editFlightGUI extends JFrame implements ActionListener
                     //Code here to store information in database
                     try {
 						editFlight thisFlight=new editFlight(flightNum,planeID,startLoc,endLoc,basePricev,planeTypev,flightTime);
-						if (thisFlight.FlightNumExist()==true)
+						if (thisFlight.FlightNumExist()==true&&thisFlight.Ticketproblem()==false)
 						{
 		                    JOptionPane.showMessageDialog(this, "Flight has been edited");
 		                    dispose();
 						}
-						else
+						else if(thisFlight.FlightNumExist()==false)
 						{
 		                    JOptionPane.showMessageDialog(this, "Flight number does not exist in the database");
+						}
+						else if(thisFlight.Ticketproblem()==true)
+						{
+		                    JOptionPane.showMessageDialog(this, "Cannot change plane type whant people already bought tickets");
 						}
 					} catch (Exception e1) {
 						e1.printStackTrace();
