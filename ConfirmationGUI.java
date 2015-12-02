@@ -156,7 +156,7 @@ class ConfirmationGUIFrame extends JFrame {
 		}
         if(coupon==true)
         {
-        	String quote="For being a loyal customer, have a coupon for %10 off for your next purchase.\n\t\t\t"+theCode+"\nMake sure you save the code somewhere\nCoupon expire one year from today.";
+        	String quote="For being a loyal customer, have a coupon for 10% off for your next purchase.\n\t\t\t"+theCode+"\nMake sure you save the code somewhere\nCoupon expire one year from today.";
             JOptionPane.showMessageDialog(mainframe, quote);
         }
 
