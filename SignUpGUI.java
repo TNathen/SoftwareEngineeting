@@ -88,9 +88,9 @@ public class SignUpGUI extends JFrame implements ActionListener
         t5.setBounds(250, 250, 200, 30);
         p1.setBounds(250, 300, 200, 30);
         p2.setBounds(250, 350, 200, 30);
-        b1.setBounds(40, 400, 100, 30);
+        b1.setBounds(340, 400, 100, 30);
         b2.setBounds(190, 400, 100, 30);
-        b3.setBounds(340, 400, 100, 30);
+        b3.setBounds(40, 400, 100, 30);
         
         add(l1);
         add(l2);

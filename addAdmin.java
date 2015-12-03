@@ -1,15 +1,14 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 
-public class addUser 
+public class addAdmin 
 {
-    boolean emailExist = false;
-	public addUser(String email,String pass, String fName, String lName, String phone, String dob) throws Exception 
-	{		
+	boolean emailExist = false;
+	public addAdmin(String email,String pass) throws Exception 
+	{	
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
         Statement stat = conn.createStatement();
@@ -36,22 +35,19 @@ public class addUser
             }
             rs2.close();
         }
-        System.out.println(emailExist);
+        
         if(emailExist == false)
         {          
-        stat.executeUpdate("INSERT INTO USERS (EMAIL,PASS,FIRST_NAME,LAST_NAME,PHONE,DOB,MONEYSPENT) "
-        		+"VALUES (\""+email+"\",\""+pass+"\",\""+fName+"\",\""+lName+"\",\""+phone+"\","+dob+",0.0);"); 	
+        stat.executeUpdate("INSERT INTO ADMINS (EMAIL,PASS) "
+        		+"VALUES (\""+email+"\",\""+pass+"\");"); 	
         }
         else
         {
         	//replace with something else
             System.out.println("Email already in the database");
         }
-
-        //Shorter version
-        //stat.executeUpdate("insert into USERS values(\""+email+"\",\""+pass+"\",\""+fName+"\",\""+lName+"\",\""+phone+"\","+dob+",0.0);");
-        conn.close();
 	}
+	
 	public boolean isSuccessful()
 	{
 		if (emailExist==false)
