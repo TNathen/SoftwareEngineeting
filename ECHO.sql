@@ -11,7 +11,9 @@ FIRST_NAME varchar(25),
 LAST_NAME varchar(30),
 PHONE varchar(10),
 DOB date,
-MONEYSPENT decimal (9,2)
+MONEYSPENT decimal (9,2),
+SECURITY_QUESTION varchar(40),
+ANSWER varchar(30)
 );
 
 create table ADMINS(
@@ -51,9 +53,9 @@ PERCENT decimal(2,2),
 constraint COUPON_EMAIL foreign key (EMAIL) references USERS (EMAIL)
 );
 
-insert into USERS values("u@ser.mail","asdf","john","doe","4455458785",'1999-01-01',23.20);
+insert into USERS values("u@ser.mail","asdf","john","doe","4455458785",'1999-01-01',23.20,"What is your dogs name?","dog");
 insert into ADMINS values("a@ser.mail","asdf");
-insert into FLIGHTS values("plane1","flight1","ATL","NEW YORK",2, '20120618 10:34:09');
+insert into FLIGHTS values("plane1","flight1","ATL","NEW YORK",2, '20120618 103409');
 insert into TICKETS values("flight1","u@ser.mail",2,10,500.00,"CNUMBER16","ADDRESS", '20150101');
 insert into COUPONS values("CODE","EMAIL","20160101",.05);
 
