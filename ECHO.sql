@@ -28,15 +28,16 @@ FLIGHT_NUM varchar(10) primary key,
 START_LOC varchar(30),
 END_LOC varchar(30),
 PLANE_TYPE INT,
-FLIGHT_TIME DATETIME(0)
+FLIGHT_TIME DATETIME(0),
+BASE_PRICE decimal(9,2)
 );
 
 create table TICKETS(
 FLIGHT_NUM varchar(10),
 U_EMAIL varchar(30),
 PLANE_TYPE INT,
-T_NUMBER int,
-T_VALUE decimal (9,2),
+TICKET_NUMBER int,
+TICKET_VALUE decimal (9,2),
 CREDIT_CARD varchar(20),
 ADDRESS varchar(60),
 DATE_PURCHASED date,
