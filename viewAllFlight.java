@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Vector;
 
 
 public class viewAllFlight 
@@ -17,7 +18,7 @@ public class viewAllFlight
 	{
 		return complete;
 	}
-	public static String[][] AllTheFlight()throws Exception
+	public static Vector<Vector<Object>> AllTheFlight()throws Exception
 	{
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
@@ -33,24 +34,23 @@ public class viewAllFlight
         System.out.println("");
         rs1.close();
         
-        String AllFlights[][]=new String[counter][7];
         
         ResultSet rs = stat.executeQuery("select * from FLIGHTS;");
         System.out.println("FLIGHTS table");
-        int index=0;
-        while (rs.next()) 
-        {
-        	AllFlights[index][0]=rs.getString("PLANE_ID");
-        	AllFlights[index][1]=rs.getString("FLIGHT_NUM");
-        	AllFlights[index][2]=rs.getString("START_LOC");
-        	AllFlights[index][3]=rs.getString("END_LOC");
-        	AllFlights[index][4]=rs.getString("BASE_PRICE");
-        	AllFlights[index][5]=rs.getString("PLANE_TYPE"); 
-        	AllFlights[index][6]=rs.getString("FLIGHT_TIME");
-            index++;
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+        while (rs.next()) {
+            Vector<Object> vector = new Vector<Object>();
+            vector.add(rs.getString("PLANE_ID"));
+            vector.add(rs.getString("FLIGHT_NUM"));
+            vector.add(rs.getString("START_LOC"));
+            vector.add(rs.getString("END_LOC"));
+            vector.add(rs.getString("BASE_PRICE"));
+            vector.add(rs.getString("PLANE_TYPE")); 
+            vector.add(rs.getString("FLIGHT_TIME"));
+            data.add(vector);
         }
         rs.close();
         complete=true;
-        return AllFlights;
+        return data;
 	}
 }

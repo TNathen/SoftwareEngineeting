@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.Vector;
+
 import javax.swing.text.DefaultFormatter;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -14,6 +16,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.Document;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -31,12 +34,16 @@ public class AdminGUI{
         } catch (Exception e) {}
         JFrame adminGUIframe = new AdminGUIFrame();
         adminGUIframe.setVisible(true);
+        
+
     }
 }
+
 
 class AdminGUIFrame extends JFrame {
     
 	JTable table;
+	Vector<Vector<Object>> rowData;
     String PLANE_ID="";
     String FLIGHT_NUM="";
     String START_LOC="";
@@ -69,19 +76,29 @@ class AdminGUIFrame extends JFrame {
     viewAllFlight allF=new viewAllFlight();
 
 
-    Object rowData[][] = null;
+    rowData = new Vector<Vector<Object>>();
 	try {
 		rowData = allF.AllTheFlight();
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
     
-    Object columnNames[] = { "PLANE_ID", "FLIGHT_NUM", "START_LOC" ,"END_LOC","BASE_PRICE","PLANE_TYPE","FLIGHT_TIME"};
-    table = new JTable(rowData, columnNames);
+	Vector<String> columnNames = new Vector<String>();
+	columnNames.add("PLANE_ID");
+	columnNames.add("FLIGHT_NUM");
+	columnNames.add("START_LOC");
+	columnNames.add("END_LOC");
+	columnNames.add("BASE_PRICE");
+	columnNames.add("PLANE_TYPE");
+	columnNames.add("FLIGHT_TIME");
+	
+	DefaultTableModel dtm = new DefaultTableModel(rowData, columnNames);
+    table = new JTable(dtm);
+    
+    
     JScrollPane scrollable = new JScrollPane(table);
     
     
-    scrollable = table.createScrollPaneForTable( table );
     p1.add(scrollable);
     
     p2.add(addflightbutton);
@@ -102,7 +119,7 @@ class AdminGUIFrame extends JFrame {
         AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
         boolean selected = abstractButton.getModel().isSelected();
         System.out.println("DELETE button has been clicked");
-        deleteFlightGUI deleteF=new deleteFlightGUI(FLIGHT_NUM);
+        deleteFlightGUI deleteF=new deleteFlightGUI(FLIGHT_NUM, rowData, table.getSelectedRow(), scrollable);
       }
     };
     deleteflightbutton.addActionListener(deletelistener);
@@ -113,18 +130,19 @@ class AdminGUIFrame extends JFrame {
         AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
         boolean selected = abstractButton.getModel().isSelected();
         System.out.println("EDIT button has been clicked");
-        editFlightGUI editF=new editFlightGUI(PLANE_ID,FLIGHT_NUM,START_LOC,END_LOC,BASE_PRICE,PLANE_TYPE,FLIGHT_TIME);
+        editFlightGUI editF=new editFlightGUI(PLANE_ID,FLIGHT_NUM,START_LOC,END_LOC,BASE_PRICE,PLANE_TYPE, FLIGHT_TIME, rowData, table.getSelectedRow(), scrollable);
       }
     };
     editflightbutton.addActionListener(editlistener);
     
     //the code below listens for when the ADD FLIGHT button is clicked
+    
     ActionListener addlistener = new ActionListener() {
       public void actionPerformed(ActionEvent actionEvent) {
         AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
         boolean selected = abstractButton.getModel().isSelected();
         System.out.println("ADD FLIGHT button has been clicked");
-        AddFlightGUI addF=new AddFlightGUI();
+        AddFlightGUI addF=new AddFlightGUI(rowData, table.getSelectedRow(), scrollable);
       }
     };
     addflightbutton.addActionListener(addlistener);

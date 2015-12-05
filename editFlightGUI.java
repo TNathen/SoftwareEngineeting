@@ -1,10 +1,12 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 
@@ -13,9 +15,12 @@ public class editFlightGUI extends JFrame implements ActionListener
     private final JLabel l1, l2, l3, l4, l5, l6, l7, l8;
     private final JTextField t1, t2, t3, t4, t5, t6, t7;
     private final JButton b1, b2, b3;
+    Vector<Vector<Object>> row;
+    int rowNumber;
+    JScrollPane scrollable1;
     //private final String validTime = "(1[012]|[1-9]):[0-5][0-9](\\s)?(?i)(am|pm)";
     
-    public editFlightGUI(String PLANE_ID,String FLIGHT_NUM,String START_LOC,String END_LOC,String BASE_PRICE,String PLANE_TYPE,String FLIGHT_TIME)
+    public editFlightGUI(String PLANE_ID,String FLIGHT_NUM,String START_LOC,String END_LOC,String BASE_PRICE,String PLANE_TYPE,String FLIGHT_TIME, Vector<Vector<Object>> rowData , int rowNum, JScrollPane scrollable)
     {
         super("edit Flight");
         setLayout(null);
@@ -94,6 +99,10 @@ public class editFlightGUI extends JFrame implements ActionListener
         t7.setText(FLIGHT_TIME);
         
         setVisible(true);
+        
+        row=rowData;
+        rowNumber=rowNum;
+        scrollable1=scrollable;
     }
 
     @Override
@@ -147,6 +156,17 @@ public class editFlightGUI extends JFrame implements ActionListener
 						if (thisFlight.FlightNumExist()==true&&thisFlight.Ticketproblem()==false)
 						{
 		                    JOptionPane.showMessageDialog(this, "Flight has been edited");
+		                    Vector<Object> element = new Vector<Object>();
+		                    element.add(planeID);
+		                    element.add(flightNum);
+		                    element.add(startLoc);
+		                    element.add(endLoc);
+		                    element.add(Double.toString(basePricev));
+		                    element.add(""+planeTypev);
+		                    element.add(flightTime);
+		                    
+		                    row.set(rowNumber, element);
+		                    scrollable1.repaint();
 		                    dispose();
 						}
 						else if(thisFlight.FlightNumExist()==false)
@@ -187,6 +207,6 @@ public class editFlightGUI extends JFrame implements ActionListener
     
     public static void main(String[] args)
     {
-        AddFlightGUI addFlightGUI = new AddFlightGUI();
+        new AddFlightGUI(new Vector<Vector<Object>>() , 4 , new JScrollPane());
     }
 }

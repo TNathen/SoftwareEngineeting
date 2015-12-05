@@ -1,11 +1,13 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 
@@ -15,15 +17,19 @@ public class deleteFlightGUI extends JFrame implements ActionListener
     private final JTextField t1;
     private final JButton b1, b2, b3;
     private static String TheEmail="";
-    public deleteFlightGUI(String flightNum)
+    Vector<Vector<Object>> row;
+    int rowNumber;
+    JScrollPane scrollable1;
+    public deleteFlightGUI(String flightNum, Vector<Vector<Object>> rowData , int rowNum, JScrollPane scrollable)
     {
+    	
         super("delete Flight");
         setLayout(null);
         setSize(500, 250);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+        
         l1 = new JLabel("Delete a Flight");
         l2 = new JLabel("Flight Number: ");
         t1 = new JTextField();
@@ -54,6 +60,9 @@ public class deleteFlightGUI extends JFrame implements ActionListener
         t1.setText(flightNum);
         
         setVisible(true);
+        row=rowData;
+        rowNumber=rowNum;
+        scrollable1=scrollable;
         }
 
     @Override
@@ -68,6 +77,8 @@ public class deleteFlightGUI extends JFrame implements ActionListener
 				if(thisFlight.complete()==true)
 				{
 	                JOptionPane.showMessageDialog(this, "Flight has been deleted");
+	                row.removeElementAt(rowNumber);
+	                scrollable1.repaint();
 				}
 				else
 				{
@@ -98,6 +109,6 @@ public class deleteFlightGUI extends JFrame implements ActionListener
     }
     public static void main(String[] args)
     {
-        deleteFlightGUI deleteFlightGUI = new deleteFlightGUI("");
+        deleteFlightGUI deleteFlightGUI = new deleteFlightGUI("", new Vector<Vector<Object>>() , 4 , new JScrollPane());
     }
 }

@@ -1,4 +1,5 @@
 import java.awt.event.*;
+import java.util.Vector;
 import java.util.regex.*;
 import javax.swing.*;
 
@@ -7,9 +8,12 @@ public class AddFlightGUI extends JFrame implements ActionListener
     private final JLabel l1, l2, l3, l4, l5, l6, l7, l8;
     private final JTextField t1, t2, t3, t4, t5, t6, t7;
     private final JButton b1, b2, b3, b4;
+    Vector<Vector<Object>> row;
+    int rowNumber;
+    JScrollPane scrollable1;
     //private final String validTime = "(1[012]|[1-9]):[0-5][0-9](\\s)?(?i)(am|pm)";
     
-    public AddFlightGUI()
+    public AddFlightGUI(Vector<Vector<Object>> rowData , int rowNum, JScrollPane scrollable)
     {
         super("Add Flight");
         setLayout(null);
@@ -89,6 +93,9 @@ public class AddFlightGUI extends JFrame implements ActionListener
         add(b3);
         add(b4);
         setVisible(true);
+        row=rowData;
+        rowNumber=rowNum;
+        scrollable1=scrollable;
     }
 
     @Override
@@ -140,6 +147,17 @@ public class AddFlightGUI extends JFrame implements ActionListener
                     try {
 						AddFlight thisFlight=new AddFlight(planeID,flightNum,startLoc,endLoc,basePricev,planeTypev,flightTime);
 	                    JOptionPane.showMessageDialog(this, "Flight Added");
+	                    Vector<Object> element = new Vector<Object>();
+	                    element.add(planeID);
+	                    element.add(flightNum);
+	                    element.add(startLoc);
+	                    element.add(endLoc);
+	                    element.add(Double.toString(basePricev));
+	                    element.add(""+planeTypev);
+	                    element.add(flightTime);
+	                    
+	                    row.add(element);
+	                    scrollable1.repaint();
 	                    dispose();
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -181,6 +199,6 @@ public class AddFlightGUI extends JFrame implements ActionListener
     
     public static void main(String[] args)
     {
-        AddFlightGUI addFlightGUI = new AddFlightGUI();
+        AddFlightGUI addFlightGUI = new AddFlightGUI(new Vector<Vector<Object>>() , 4 , new JScrollPane());
     }
 }
