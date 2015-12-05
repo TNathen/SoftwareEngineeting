@@ -21,7 +21,7 @@ public class Pull_Flight_Info {
 		}
 		
 		StringBuilder query = new StringBuilder();
-		query.append("select FLIGHT_NUM, START_LOC, END_LOC, FLIGHT_TIME from FLIGHTS ");
+		query.append("select FLIGHT_NUM, START_LOC, END_LOC, PLANE_TYPE, FLIGHT_TIME from FLIGHTS ");
 		if(!columnName.isEmpty())query.append(" where "); 
 		while(!columnName.isEmpty())
 		{

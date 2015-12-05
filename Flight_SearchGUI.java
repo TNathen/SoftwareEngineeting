@@ -46,6 +46,7 @@ public class Flight_SearchGUI{
 class Flight_SearchGUIFrame extends JFrame {
 
 	String flight;
+	int flight_num_location;
     
   public Flight_SearchGUIFrame(String select,final String email) throws Exception {
     super("Flight Search");
@@ -68,7 +69,6 @@ class Flight_SearchGUIFrame extends JFrame {
     p1.setBorder(BorderFactory.createTitledBorder("FLIGHT LISTINGS"));
     
     
-    // populate the table below with the hit results from DB!
     
     Class.forName("org.sqlite.JDBC");
     Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
@@ -80,6 +80,7 @@ class Flight_SearchGUIFrame extends JFrame {
     // names of columns
     Vector<String> columnNames = new Vector<String>();
     int columnCount = metaData.getColumnCount();
+    flight_num_location = columnCount-2;
     for (int column = 1; column <= columnCount; column++) {
         columnNames.add(metaData.getColumnName(column));
     }
@@ -88,19 +89,21 @@ class Flight_SearchGUIFrame extends JFrame {
     Vector<Vector<Object>> data = new Vector<Vector<Object>>();
     while (rs.next()) {
         Vector<Object> vector = new Vector<Object>();
-        for (int columnIndex = 1; columnIndex <= columnCount-1; columnIndex++) {
+        for (int columnIndex = 1; columnIndex <= columnCount-2; columnIndex++) {
             vector.add(rs.getObject(columnIndex));
         }
+
         String x = (String) rs.getObject(columnCount);
-        x = x.substring(0, 4) + "-" + x.substring(4, 6) + "-" + x.substring(6, 11)+":"+x.substring(11, 13);
         
+        x = x.substring(0, 4) + "-" + x.substring(4, 6) + "-" + x.substring(6, 11)+":"+x.substring(11, 13);
+        vector.add(rs.getObject(columnCount-1));
         vector.add(x);
         data.add(vector);
     }
     conn.close();
     
     final JTable table = new JTable(data, columnNames);
-
+    table.removeColumn(table.getColumnModel().getColumn(columnCount-2));
     JScrollPane scrollable = new JScrollPane(table);
     
     
@@ -124,12 +127,56 @@ class Flight_SearchGUIFrame extends JFrame {
       public void actionPerformed(ActionEvent actionEvent) {
         AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
         boolean selected = abstractButton.getModel().isSelected();
-        try {
-        	Flight_SeatingGUI flightseatingGUI = new Flight_SeatingGUI(flight,email);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("panic");
-		}
+        if((int)table.getModel().getValueAt(table.getSelectedRow(), flight_num_location) == 1)
+        {
+        	try {
+        		System.out.println(1);
+            	Flight_SeatingGUI flightseatingGUI = new Flight_SeatingGUI(flight,email);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    			System.out.println("panic");
+    		}
+        }
+        if((int)table.getModel().getValueAt(table.getSelectedRow(), flight_num_location) == 2)
+        {
+        	try {
+        		System.out.println(2);
+            	Flight_SeatingGUI2 flightseatingGUI = new Flight_SeatingGUI2(flight,email);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    			System.out.println("panic");
+    		}
+        }
+        if((int)table.getModel().getValueAt(table.getSelectedRow(), flight_num_location) == 3)
+        {
+        	try {
+        		System.out.println(3);
+            	Flight_SeatingGUI3 flightseatingGUI = new Flight_SeatingGUI3(flight,email);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    			System.out.println("panic");
+    		}
+        }
+        if((int)table.getModel().getValueAt(table.getSelectedRow(), flight_num_location) == 4)
+        {
+        	try {
+            	Flight_SeatingGUI4 flightseatingGUI = new Flight_SeatingGUI4(flight,email);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    			System.out.println("panic");
+    		}
+        }
+        if((int)table.getModel().getValueAt(table.getSelectedRow(), flight_num_location) == 5)
+        {
+        	try {
+            	Flight_SeatingGUI5 flightseatingGUI = new Flight_SeatingGUI5(flight,email);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    			System.out.println("panic");
+    		}
+        }
+        
+        
         
       }
     };
