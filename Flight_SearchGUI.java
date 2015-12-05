@@ -103,7 +103,6 @@ class Flight_SearchGUIFrame extends JFrame {
     conn.close();
     
     final JTable table = new JTable(data, columnNames);
-    table.removeColumn(table.getColumnModel().getColumn(columnCount-2));
     JScrollPane scrollable = new JScrollPane(table);
     
     
