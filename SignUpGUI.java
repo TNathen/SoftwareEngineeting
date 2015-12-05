@@ -7,9 +7,9 @@ import javax.swing.*;
 
 public class SignUpGUI extends JFrame implements ActionListener
 {
-    private final JLabel l1, l2, l3, l4, l5, l6, l7, l8;
-    private final JTextField t1, t2, t3, t4, t5;
-    private final JPasswordField p1, p2;
+    private final JLabel l1, l2, l3, l4, l5, l6, l7, l8, l9, l10;
+    private final JTextField t1, t2, t3, t4, t5, t6;
+    private final JPasswordField p1, p2, p3;
     private final JButton b1, b2, b3;
     private final String validName = "[a-zA-Z]+";
     private final String validDOB = "^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$";
@@ -23,7 +23,7 @@ public class SignUpGUI extends JFrame implements ActionListener
     {
         super("Sign-Up Form");
         setLayout(null);
-        setSize(500, 500);
+        setSize(500, 600);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -36,13 +36,18 @@ public class SignUpGUI extends JFrame implements ActionListener
         l6 = new JLabel("Phone Number:");
         l7 = new JLabel("Password:");
         l8 = new JLabel("Confirm Password:");
+        l9 = new JLabel("Security Question:");
+        l10 = new JLabel("Security Answer:");
+
         t1 = new JTextField();
         t2 = new JTextField();
         t3 = new JTextField();
         t4 = new JTextField();
         t5 = new JTextField();
+        t6 = new JTextField();
         p1 = new JPasswordField();
         p2 = new JPasswordField();
+        p3 = new JPasswordField();
         b1 = new JButton("Sign Up");
         b2 = new JButton("Clear");
         b3 = new JButton("Exit");
@@ -68,6 +73,9 @@ public class SignUpGUI extends JFrame implements ActionListener
                 + "<p>one lowercase character</p>"
                 + "<p>one uppercase character</p>"
                 + "<p>length of 6-20 characters</p></html>");
+        l9.setToolTipText("<html><p>Security question must be at least 6 characters long</p></html>");
+        l10.setToolTipText("<html><p>Security answer must be at least 3 characters long</p></html>");
+
         
         b1.addActionListener(this);
         b2.addActionListener(this);
@@ -81,16 +89,26 @@ public class SignUpGUI extends JFrame implements ActionListener
         l6.setBounds(30, 250, 200, 30);
         l7.setBounds(30, 300, 200, 30);
         l8.setBounds(30, 350, 200, 30);
+        l9.setBounds(30, 400, 200, 30);
+        l10.setBounds(30, 450, 200, 30);
+        
+        
         t1.setBounds(250, 50, 200, 30);
         t2.setBounds(250, 100, 200, 30);
         t3.setBounds(250, 150, 200, 30);
         t4.setBounds(250, 200, 200, 30);
         t5.setBounds(250, 250, 200, 30);
+        t6.setBounds(250, 400, 200, 30);
+
+        
         p1.setBounds(250, 300, 200, 30);
         p2.setBounds(250, 350, 200, 30);
-        b1.setBounds(340, 400, 100, 30);
-        b2.setBounds(190, 400, 100, 30);
-        b3.setBounds(40, 400, 100, 30);
+        p3.setBounds(250, 450, 200, 30);
+
+        
+        b1.setBounds(340, 500, 100, 30);
+        b2.setBounds(190, 500, 100, 30);
+        b3.setBounds(40, 500, 100, 30);
         
         add(l1);
         add(l2);
@@ -100,13 +118,21 @@ public class SignUpGUI extends JFrame implements ActionListener
         add(l6);
         add(l7);
         add(l8);
+        add(l9);
+        add(l10);
+        
         add(t1);
         add(t2);
         add(t3);
         add(t4);
         add(t5);
+        add(t6);
+
+        
         add(p1);
         add(p2);
+        add(p3);
+        
         add(b1);
         add(b2);
         add(b3);
@@ -130,6 +156,12 @@ public class SignUpGUI extends JFrame implements ActionListener
             String password1 = String.valueOf(pw1);
             String password2 = String.valueOf(pw2);
             System.out.println(dateOfBirth);
+            
+            String Squestion=t6.getText();
+            char[] pw3 = p3.getPassword();
+            String Sanswer = String.valueOf(pw3);
+
+            
             Pattern namePattern = Pattern.compile(validName);
             Matcher firstNameMatcher = namePattern.matcher(firstName);
             if("".equals(firstName))
@@ -196,23 +228,39 @@ public class SignUpGUI extends JFrame implements ActionListener
                                                 {
                                                     if(password1.equals(password2))
                                                     {
-                                                        //Code here to store information in database
-                                                        try {
-															addUser thisPerson=new addUser(email,password1,firstName,lastName,phoneNumber,dateOfBirth);
-															if(thisPerson.isSuccessful()==true)
-															{
-		                                                        JOptionPane.showMessageDialog(this, "Thank you for signing up!\nMake sure to login after signing up");
-		                                                        dispose();
-															}
-															else
-															{
-		                                                        JOptionPane.showMessageDialog(this, "Email is already in the database.");
-															}
-															
-															
-														} catch (Exception e1) {
-															e1.printStackTrace();
-														}
+                                                    	if(Squestion.length()>=6)
+                                                    	{
+                                                    		if(Sanswer.length()>=3)
+                                                    		{
+                                                                //Code here to store information in database
+                                                                try {
+        															addUser thisPerson=new addUser(email,password1,firstName,lastName,phoneNumber,dateOfBirth,Squestion,Sanswer);
+        															if(thisPerson.isSuccessful()==true)
+        															{
+        		                                                        JOptionPane.showMessageDialog(this, "Thank you for signing up!\nMake sure to login after signing up");
+        		                                                        dispose();
+        															}
+        															else
+        															{
+        		                                                        JOptionPane.showMessageDialog(this, "Email is already in the database.");
+        															}
+        															
+        															
+        														} catch (Exception e1) {
+        															e1.printStackTrace();
+        														}
+                                                    		}
+                                                    		else
+                                                    		{
+                                                                JOptionPane.showMessageDialog(this, "Invalid security password");
+                                                                p3.setText("");
+                                                    		}
+                                                    	}
+                                                    	else
+                                                    	{
+                                                            JOptionPane.showMessageDialog(this, "Invalid security question");
+                                                            t6.setText("");
+                                                    	}
                                                     }
                                                     else
                                                     {

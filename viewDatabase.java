@@ -27,7 +27,7 @@ public class viewDatabase {
         {
         	System.out.println(rs2.getString("EMAIL") + " " + rs2.getString("PASS") + " " +
         rs2.getString("FIRST_NAME") + " " + rs2.getString("LAST_NAME") + " " + rs2.getString("PHONE") + " " + 
-        rs2.getString("DOB") + " " + rs2.getDouble("MONEYSPENT"));
+        rs2.getString("DOB") + " " + rs2.getDouble("MONEYSPENT")+ " " + rs2.getString("SECURITY_QUESTION")+ " " + rs2.getString("ANSWER"));
         }
         System.out.println("");
         rs2.close();
@@ -53,7 +53,7 @@ public class viewDatabase {
             System.out.println(rs4.getString("FLIGHT_NUM") + " " + rs4.getString("U_EMAIL") + " " + 
         rs4.getInt("PLANE_TYPE") + " " + rs4.getString("TICKET_NUMBER") + " " + 
         rs4.getDouble("TICKET_VALUE") + " " + rs4.getString("CREDIT_CARD") + " " + rs4.getString("ADDRESS") + " " + 
-        rs4.getString("DATE_PURCHASED") + " " + rs4.getString("FOOD") + " " + rs4.getInt("BAGGAGE_NUM") + " " + rs4.getInt("HANDICAP"));
+        rs4.getString("DATE_PURCHASED") );
         }
         System.out.println("");
         rs4.close();

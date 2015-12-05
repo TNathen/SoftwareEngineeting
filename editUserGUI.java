@@ -20,9 +20,9 @@ import javax.swing.JTextField;
 
 public class editUserGUI extends JFrame implements ActionListener
 {
-    private JLabel l1, l2, l3, l4, l5, l6, l7, l8;
-    private JTextField t1, t2, t3, t4, t5;
-    private JPasswordField p1, p2;
+    private JLabel l1, l2, l3, l4, l5, l6, l7, l8, l9, l10;
+    private JTextField t1, t2, t3, t4, t5, t6;
+    private JPasswordField p1, p2, p3;
     private JButton b1, b2, b3;
     private String validName = "[a-zA-Z]+";
     private String validDOB = "^(1[0-2]|0[1-9])/(3[01]|[12][0-9]|0[1-9])/[0-9]{4}$";
@@ -36,7 +36,7 @@ public class editUserGUI extends JFrame implements ActionListener
     {
         super("Edit Account");
         setLayout(null);
-        setSize(500, 500);
+        setSize(500, 600);
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -49,13 +49,21 @@ public class editUserGUI extends JFrame implements ActionListener
         l6 = new JLabel("Phone Number:");
         l7 = new JLabel("Password:");
         l8 = new JLabel("Confirm Password:");
+        l9 = new JLabel("Security Question:");
+        l10 = new JLabel("Security Answer:");
+        
         t1 = new JTextField();
         t2 = new JTextField();
         t3 = new JTextField();
         t4 = new JTextField();
         t5 = new JTextField();
+        t6 = new JTextField();
+
         p1 = new JPasswordField();
         p2 = new JPasswordField();
+        p3 = new JPasswordField();
+
+        
         b1 = new JButton("Edit");
         b2 = new JButton("Clear");
         b3 = new JButton("Exit");
@@ -96,16 +104,25 @@ public class editUserGUI extends JFrame implements ActionListener
         l6.setBounds(30, 250, 200, 30);
         l7.setBounds(30, 300, 200, 30);
         l8.setBounds(30, 350, 200, 30);
+        l9.setBounds(30, 400, 200, 30);
+        l10.setBounds(30, 450, 200, 30);
+        
         t1.setBounds(250, 50, 200, 30);
         t2.setBounds(250, 100, 200, 30);
         t3.setBounds(250, 150, 200, 30);
         t4.setBounds(250, 200, 200, 30);
         t5.setBounds(250, 250, 200, 30);
+        t6.setBounds(250, 400, 200, 30);
+
+        
         p1.setBounds(250, 300, 200, 30);
         p2.setBounds(250, 350, 200, 30);
-        b1.setBounds(40, 400, 100, 30);
-        b2.setBounds(190, 400, 100, 30);
-        b3.setBounds(340, 400, 100, 30);
+        p3.setBounds(250, 450, 200, 30);
+
+        
+        b1.setBounds(340, 500, 100, 30);
+        b2.setBounds(190, 500, 100, 30);
+        b3.setBounds(40, 500, 100, 30);
         
         add(l1);
         add(l2);
@@ -115,13 +132,21 @@ public class editUserGUI extends JFrame implements ActionListener
         add(l6);
         add(l7);
         add(l8);
+        add(l9);
+        add(l10);
+        
         add(t1);
         add(t2);
         add(t3);
         add(t4);
         add(t5);
+        add(t6);
+
+        
         add(p1);
         add(p2);
+        add(p3);
+        
         add(b1);
         add(b2);
         add(b3);
@@ -135,11 +160,13 @@ public class editUserGUI extends JFrame implements ActionListener
         {
             p1.setText(rs.getString("PASS"));
             p2.setText(rs.getString("PASS"));
+            p3.setText(rs.getString("ANSWER"));
         	t1.setText(rs.getString("FIRST_NAME"));
         	t2.setText(rs.getString("LAST_NAME"));
         	t3.setText(rs.getString("DOB"));
             t4.setText(rs.getString("EMAIL"));
         	t5.setText(rs.getString("PHONE"));
+        	t6.setText(rs.getString("SECURITY_QUESTION"));
         }
         rs.close();
         conn.close();
@@ -157,11 +184,16 @@ public class editUserGUI extends JFrame implements ActionListener
             String dateOfBirth = t3.getText();
             String newEmail = t4.getText();
             String phoneNumber = t5.getText();
+            String Squestion = t6.getText();
+
             char[] pw1 = p1.getPassword();
             char[] pw2 = p2.getPassword();
+            char[] pw3 = p3.getPassword();
+
             String password1 = String.valueOf(pw1);
             String password2 = String.valueOf(pw2);
-            
+            String Sanswer = String.valueOf(pw3);
+
             System.out.println(firstName);
             System.out.println(lastName);
             System.out.println(dateOfBirth);
@@ -237,31 +269,51 @@ public class editUserGUI extends JFrame implements ActionListener
                                                     if(password1.equals(password2))
                                                     {
                                                         //Code here to store information in database
-                                                        try {
-                                                        	if(newEmail.compareToIgnoreCase(email)==0)
-                                                        	{
-    															editUser thisPerson=new editUser(email,password1,firstName,lastName,phoneNumber,dateOfBirth);
-		                                                        JOptionPane.showMessageDialog(this, "Account has been edited");
-    															dispose();
-                                                        	}
-                                                        	else
-															{
-    															replaceUser thisPerson=new replaceUser(newEmail,email,password1,firstName,lastName,phoneNumber,dateOfBirth);
-    															System.out.println(thisPerson.isSuccessful());
-                                                        		if(thisPerson.isSuccessful()==true)//new email not in data base
-                                                        		{
-    		                                                        JOptionPane.showMessageDialog(this, "Account has been edited");
-    		                                                        dispose();
-                                                        		}
-                                                        		else
-                                                        		{
-    		                                                        JOptionPane.showMessageDialog(this, "Email is already in the database.");
-                                                        		}
-															}												
-															
-														} catch (Exception e1) {
-															e1.printStackTrace();
-														}
+                                                    	
+                                                    	if(Squestion.length()>=6)
+                                                    	{
+                                                    		if(Sanswer.length()>=3)
+                                                    		{
+                                                                //Code here to store information in database
+                                                            	
+                                                                try {
+                                                                	if(newEmail.compareToIgnoreCase(email)==0)
+                                                                	{
+            															editUser thisPerson=new editUser(email,password1,firstName,lastName,phoneNumber,dateOfBirth,Squestion,Sanswer);
+        		                                                        JOptionPane.showMessageDialog(this, "Account has been edited");
+            															dispose();
+                                                                	}
+                                                                	else
+        															{
+            															replaceUser thisPerson=new replaceUser(newEmail,email,password1,firstName,lastName,phoneNumber,dateOfBirth,Squestion,Sanswer);
+            															System.out.println(thisPerson.isSuccessful());
+                                                                		if(thisPerson.isSuccessful()==true)//new email not in data base
+                                                                		{
+            		                                                        JOptionPane.showMessageDialog(this, "Account has been edited");
+            		                                                        dispose();
+                                                                		}
+                                                                		else
+                                                                		{
+            		                                                        JOptionPane.showMessageDialog(this, "Email is already in the database.");
+                                                                		}
+        															}													
+        														} catch (Exception e1) {
+        															e1.printStackTrace();
+        														}
+                                                    		}
+                                                    		else
+                                                    		{
+                                                                JOptionPane.showMessageDialog(this, "Invalid security password");
+                                                                p3.setText("");
+                                                    		}
+                                                    	}
+                                                    	else
+                                                    	{
+                                                            JOptionPane.showMessageDialog(this, "Invalid security question");
+                                                            t6.setText("");
+                                                    	}
+                                                    	//
+
                                                     }
                                                     else
                                                     {

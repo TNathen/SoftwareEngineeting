@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class addUser 
 {
     boolean emailExist = false;
-	public addUser(String email,String pass, String fName, String lName, String phone, String dob) throws Exception 
+	public addUser(String email,String pass, String fName, String lName, String phone, String dob, String sQuestion, String sAnswer) throws Exception 
 	{		
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
@@ -39,8 +39,8 @@ public class addUser
         System.out.println(emailExist);
         if(emailExist == false)
         {          
-        stat.executeUpdate("INSERT INTO USERS (EMAIL,PASS,FIRST_NAME,LAST_NAME,PHONE,DOB,MONEYSPENT) "
-        		+"VALUES (\""+email+"\",\""+pass+"\",\""+fName+"\",\""+lName+"\",\""+phone+"\","+dob+",0.0);"); 	
+        stat.executeUpdate("INSERT INTO USERS (EMAIL,PASS,FIRST_NAME,LAST_NAME,PHONE,DOB,MONEYSPENT,SECURITY_QUESTION,ANSWER) "
+        		+"VALUES (\""+email+"\",\""+pass+"\",\""+fName+"\",\""+lName+"\",\""+phone+"\",\""+dob+"\",0.0,\""+sQuestion+"\",\""+sAnswer+"\");"); 	
         }
         else
         {

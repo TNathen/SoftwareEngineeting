@@ -36,7 +36,8 @@ public class AccountGUI{
 class AccountGUIFrame extends JFrame {
     
 	JTable table;
-    
+    String email="work@mail.com";
+
   public AccountGUIFrame() {
     super("Account Menu");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,7 +47,7 @@ class AccountGUIFrame extends JFrame {
     JButton backbutton=new JButton("Back");
     JButton editAccount=new JButton("Edit Account Info");
     
-    String email="work@mail.com";
+    email="work@mail.com";
     
     mainframe.setLayout(new BoxLayout(mainframe, BoxLayout.Y_AXIS));
     JPanel p1 = new JPanel();  //table panel
@@ -67,7 +68,7 @@ class AccountGUIFrame extends JFrame {
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
-    Object columnNames[] = {"FLIGHT_NUM" ,"PLANE_TYPE" ,"TICKET_NUMBER" ,"TICKET_VALUE" ,"CREDIT_CARD" ,"ADDRESS" ,"DATE_PURCHASED" ,"FOOD" ,"BAGGAGE_NUM" ,"HANDICAP","Start Location","End Location","Departure Time"};
+    Object columnNames[] = {"FLIGHT_NUM" ,"PLANE_TYPE" ,"TICKET_NUMBER" ,"TICKET_VALUE" ,"CREDIT_CARD" ,"ADDRESS" ,"DATE_PURCHASED" ,"HANDICAP","Start Location","End Location","Departure Time"};
     table = new JTable(rowData, columnNames);
     JScrollPane scrollPane = new JScrollPane(table);
     
@@ -104,6 +105,7 @@ class AccountGUIFrame extends JFrame {
         AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
         boolean selected = abstractButton.getModel().isSelected();
         System.out.println("Back button has been clicked");
+        dispose();
       }
     };
     backbutton.addActionListener(backlistener);
@@ -113,6 +115,12 @@ class AccountGUIFrame extends JFrame {
           AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
           boolean selected = abstractButton.getModel().isSelected();
           System.out.println("edit button has been clicked");
+          try {
+			editUserGUI edit=new editUserGUI(email);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         }
       };
       editAccount.addActionListener(editlistener);

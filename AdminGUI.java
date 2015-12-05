@@ -51,17 +51,16 @@ class AdminGUIFrame extends JFrame {
     String BASE_PRICE = "";
     String PLANE_TYPE="";
     String FLIGHT_TIME="";
-	
+    JScrollPane scrollable;
   public AdminGUIFrame() {
     super("Admin Menu");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    setSize(600,500);
+    setSize(400,500);
     JPanel mainframe = new JPanel();
     
     JButton addflightbutton=new JButton("Add Flight");
     JButton editflightbutton=new JButton("Edit Flight");
     JButton deleteflightbutton=new JButton("Delete Flight");
-    JButton addAdmin=new JButton("Add Admin");
     JButton donebutton=new JButton("Done");
     
     
@@ -96,7 +95,7 @@ class AdminGUIFrame extends JFrame {
     table = new JTable(dtm);
     
     
-    JScrollPane scrollable = new JScrollPane(table);
+    scrollable = new JScrollPane(table);
     
     
     p1.add(scrollable);
@@ -104,7 +103,6 @@ class AdminGUIFrame extends JFrame {
     p2.add(addflightbutton);
     p2.add(editflightbutton);
     p2.add(deleteflightbutton);
-    p2.add(addAdmin);
     p2.add(donebutton);
     
     mainframe.add(p1);
@@ -136,7 +134,6 @@ class AdminGUIFrame extends JFrame {
     editflightbutton.addActionListener(editlistener);
     
     //the code below listens for when the ADD FLIGHT button is clicked
-    
     ActionListener addlistener = new ActionListener() {
       public void actionPerformed(ActionEvent actionEvent) {
         AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
@@ -146,17 +143,6 @@ class AdminGUIFrame extends JFrame {
       }
     };
     addflightbutton.addActionListener(addlistener);
-    
-    //the code below listens for when the DONE button is clicked
-    ActionListener addAdminlistener = new ActionListener() {
-      public void actionPerformed(ActionEvent actionEvent) {
-        AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
-        boolean selected = abstractButton.getModel().isSelected();
-        addAdminGUI addA=new addAdminGUI();
-        dispose();
-      }
-    };
-    addAdmin.addActionListener(addAdminlistener);
     
     //the code below listens for when the DONE button is clicked
     ActionListener donelistener = new ActionListener() {

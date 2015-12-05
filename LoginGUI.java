@@ -1,4 +1,8 @@
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
@@ -8,7 +12,7 @@ public class LoginGUI extends JFrame implements ActionListener
     private JLabel l1, l2, l3;
     private JTextField t1;
     private JPasswordField p1;
-    private JButton b1, b2, b3;
+    private JButton b1, b2, b3, b4;
     String copyEmail[];
     public LoginGUI(String[] TheEmail)
     {
@@ -29,19 +33,26 @@ public class LoginGUI extends JFrame implements ActionListener
         b1 = new JButton("Login");
         b2 = new JButton("Clear");
         b3 = new JButton("Exit");
-
+        b4 = new JButton("Forgot Password");
+        
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
+        b4.addActionListener(this);
 
+        
         l1.setBounds(170, 10, 500, 30);
         l2.setBounds(30, 50, 200, 30);
         l3.setBounds(30, 100, 200, 30);
         t1.setBounds(250, 50, 200, 30);
         p1.setBounds(250, 100, 200, 30);
-        b1.setBounds(40, 150, 100, 30);
-        b2.setBounds(190, 150, 100, 30);
-        b3.setBounds(340, 150, 100, 30);
+        b1.setBounds(370, 150, 100, 30);
+        b2.setBounds(120, 150, 100, 30);
+        b3.setBounds(20, 150, 100, 30);
+        b4.setBounds(220, 150, 150, 30);
+        
+        b4.setToolTipText("<html><p>Enter Email then press Forgot Password button</p></html>");
+
         add(l1);
         add(l2);
         add(l3);
@@ -50,7 +61,7 @@ public class LoginGUI extends JFrame implements ActionListener
         add(b1);
         add(b2);
         add(b3);
-
+        add(b4);
         setVisible(true);
     }
 
@@ -73,9 +84,6 @@ public class LoginGUI extends JFrame implements ActionListener
             }
             else
             {
-
-            		
-            	
             	try {
 					login attemptLogin=new login(email,password);
 					if(attemptLogin.loginsuccess()==true)
@@ -94,7 +102,7 @@ public class LoginGUI extends JFrame implements ActionListener
 					}
 					else
 					{
-		                JOptionPane.showMessageDialog(this, "Incorrect email or password");
+		                JOptionPane.showMessageDialog(this, "Incorrect e-mail or password");
 					}			
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -109,6 +117,39 @@ public class LoginGUI extends JFrame implements ActionListener
         else if(e.getSource()==b3)
         {
             dispose();
+        }
+        else if(e.getSource()==b4)
+        {
+        	//forgot password
+            String email = t1.getText();
+        	try {
+        		boolean emailInUserDB = false;
+
+                Class.forName("org.sqlite.JDBC");
+                Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
+                Statement stat = conn.createStatement();
+                ResultSet rs1 = stat.executeQuery("select * from USERS;");
+                while (rs1.next()) 
+                {
+                	if (rs1.getString("EMAIL").compareToIgnoreCase(email)==0)
+                	{
+                		emailInUserDB = true;
+                	}
+                }
+                rs1.close();
+                if (emailInUserDB == true)
+                {
+    				forgotPasswordGUI tryReset=new forgotPasswordGUI(email);
+                }
+                else
+                {
+	                JOptionPane.showMessageDialog(this, "E-mail does not exist in database");
+                }
+                conn.close();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
     }
     public void getUserEmail(String email)

@@ -7,7 +7,7 @@ import java.sql.Statement;
 public class replaceUser 
 {
     boolean emailExist = false;
-	public replaceUser(String newEmail, String email,String pass, String fName, String lName, String phone, String dob) throws Exception
+	public replaceUser(String newEmail, String email,String pass, String fName, String lName, String phone, String dob, String sQuestion, String sAnswer) throws Exception
 	{
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
@@ -45,8 +45,8 @@ public class replaceUser
         }
         if(emailExist == false)
         {          
-        stat.executeUpdate("INSERT INTO USERS (EMAIL,PASS,FIRST_NAME,LAST_NAME,PHONE,DOB,MONEYSPENT) "
-        		+"VALUES (\""+newEmail+"\",\""+pass+"\",\""+fName+"\",\""+lName+"\",\""+phone+"\","+dob+","+money+");"); 
+        stat.executeUpdate("INSERT INTO USERS (EMAIL,PASS,FIRST_NAME,LAST_NAME,PHONE,DOB,MONEYSPENT,SECURITY_QUESTION,ANSWER) "
+        		+"VALUES (\""+newEmail+"\",\""+pass+"\",\""+fName+"\",\""+lName+"\",\""+phone+"\",\""+dob+"\","+money+",\""+sQuestion+"\",\""+sAnswer+"\");"); 	
         
 
             stat.executeUpdate("UPDATE TICKETS SET U_EMAIL = '"+newEmail+"' WHERE U_EMAIL = \""+email+"\";");
