@@ -31,8 +31,6 @@ public class AdminGUI{
         } catch (Exception e) {}
         JFrame adminGUIframe = new AdminGUIFrame();
         adminGUIframe.setVisible(true);
-        
-
     }
 }
 
