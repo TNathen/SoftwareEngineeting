@@ -30,14 +30,14 @@ public class seatInfo
 			if(seatNum>0 && seatNum<7)
 			{
 				//shove all description into the variable
-				description="<html>Handicap Seat<br>It has blah blah<br>$"+price+"</html>";
+				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>It is also wheelchair accessable<br>It comes with the same benefits as business class<br>$"+price+"</html>";
 				seatType="Handicap Seat";
 			}
 			else if(seatNum>6 && seatNum<19)
 			{
 				//shove all description into the variable
 				price*=5;
-				description="<html>First Class Seat<br>It has blah blah<br>$"+price+"</html>";
+				description="<html>First Class Seat<br>It comes with a full course meal<br>It also comes with more comfortable chairs<br>$"+price+"</html>";
 				seatType="First Class Seat";
 
 			}
@@ -45,14 +45,122 @@ public class seatInfo
 			{
 				//shove all description into the variable
 				price*=3;
-				description="<html>Business Seat<br>It has blah blah<br>$"+price+"</html>";
+				description="<html>Business Seat<br>It comes with a meal of your choice<br>It has some extra leg room<br>$"+price+"</html>";
 				seatType="Business Class Seat";
 
 			}
 			else
 			{
 				//shove all description into the variable
-				description="<html>Economy Class Seat<br>It has blah blah<br>$"+price+"</html>";
+				description="<html>Economy Class Seat<br>It comes with free complementary peanuts and water<br>$"+price+"</html>";
+				seatType="Economy Class Seat";
+
+			}
+			if(discount==true)
+			{
+				price*=.5;
+			}
+		}
+		else if (planeType==2)
+		{
+			if(seatNum>0 && seatNum<7)
+			{
+				//shove all description into the variable
+				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>It is also wheelchair accessable<br>It comes with the same benefits as business class<br>$"+price+"</html>";
+				seatType="Handicap Seat";
+			}
+			else if(seatNum>6 && seatNum<19)
+			{
+				//shove all description into the variable
+				price*=5;
+				description="<html>First Class Seat<br>It comes with a full course meal<br>It also comes with more comfortable chairs<br>$"+price+"</html>";
+				seatType="First Class Seat";
+
+			}
+			else if(seatNum>18 && seatNum<37)
+			{
+				//shove all description into the variable
+				price*=3;
+				description="<html>Business Seat<br>It comes with a meal of your choice<br>It has some extra leg room<br>$"+price+"</html>";
+				seatType="Business Class Seat";
+
+			}
+			else
+			{
+				//shove all description into the variable
+				description="<html>Economy Class Seat<br>It comes with free complementary peanuts and water<br>$"+price+"</html>";
+				seatType="Economy Class Seat";
+
+			}
+			if(discount==true)
+			{
+				price*=.5;
+			}
+		}
+		else if (planeType==3)
+		{
+			if(seatNum>0 && seatNum<8)
+			{
+				//shove all description into the variable
+				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>It is also wheelchair accessable<br>It comes with the same benefits as business class<br>$"+price+"</html>";
+				seatType="Handicap Seat";
+			}
+			else if(seatNum>7 && seatNum<22)
+			{
+				//shove all description into the variable
+				price*=5;
+				description="<html>First Class Seat<br>It comes with a full course meal<br>It also comes with more comfortable chairs<br>$"+price+"</html>";
+				seatType="First Class Seat";
+
+			}
+			else if(seatNum>21 && seatNum<43)
+			{
+				//shove all description into the variable
+				price*=3;
+				description="<html>Business Seat<br>It comes with a meal of your choice<br>It has some extra leg room<br>$"+price+"</html>";
+				seatType="Business Class Seat";
+
+			}
+			else
+			{
+				//shove all description into the variable
+				description="<html>Economy Class Seat<br>It comes with free complementary peanuts and water<br>$"+price+"</html>";
+				seatType="Economy Class Seat";
+
+			}
+			if(discount==true)
+			{
+				price*=.5;
+			}
+		}
+		else if (planeType==4)
+		{
+			if(seatNum>0 && seatNum<10)
+			{
+				//shove all description into the variable
+				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>It is also wheelchair accessable<br>It comes with the same benefits as business class<br>$"+price+"</html>";
+				seatType="Handicap Seat";
+			}
+			else if(seatNum>9 && seatNum<28)
+			{
+				//shove all description into the variable
+				price*=5;
+				description="<html>First Class Seat<br>It comes with a full course meal<br>It also comes with more comfortable chairs<br>$"+price+"</html>";
+				seatType="First Class Seat";
+
+			}
+			else if(seatNum>27 && seatNum<55)
+			{
+				//shove all description into the variable
+				price*=3;
+				description="<html>Business Seat<br>It comes with a meal of your choice<br>It has some extra leg room<br>$"+price+"</html>";
+				seatType="Business Class Seat";
+
+			}
+			else
+			{
+				//shove all description into the variable
+				description="<html>Economy Class Seat<br>It comes with free complementary peanuts and water<br>$"+price+"</html>";
 				seatType="Economy Class Seat";
 
 			}
@@ -63,33 +171,33 @@ public class seatInfo
 		}
 		else
 		{
-			if(seatNum>0 && seatNum<7)
+			if(seatNum>0 && seatNum<6)
 			{
 				//shove all description into the variable
-				description="<html>Handicap Seat<br>It has blah blah<br>$"+price+"</html>";
+				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>It is also wheelchair accessable<br>It comes with the same benefits as business class<br>$"+price+"</html>";
 				seatType="Handicap Seat";
 
 			}
-			else if(seatNum>6 && seatNum<19)
+			else if(seatNum>5 && seatNum<16)
 			{
 				//shove all description into the variable
 				price*=5;
-				description="<html>First Class Seat<br>It has blah blah<br>$"+price+"</html>";
+				description="<html>First Class Seat<br>It comes with a full course meal<br>It also comes with more comfortable chairs<br>$"+price+"</html>";
 				seatType="First Class Seat Seat";
 
 			}
-			else if(seatNum>18 && seatNum<34)
+			else if(seatNum>15 && seatNum<31)
 			{
 				//shove all description into the variable
 				price*=3;
-				description="<html>Business Class Seat<br>It has blah blah<br>$"+price+"</html>";
+				description="<html>Business Seat<br>It comes with a meal of your choice<br>It has some extra leg room<br>$"+price+"</html>";
 				seatType="Business Class Seat";
 
 			}
 			else
 			{
 				//shove all description into the variable
-				description="<html>Economy Class Seat<br>It has blah blah<br>$"+price+"</html>";
+				description="<html>Economy Class Seat<br>It comes with free complementary peanuts and water<br>$"+price+"</html>";
 				seatType="Economy Class Seat";
 
 			}
