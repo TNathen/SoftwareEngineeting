@@ -51,6 +51,7 @@ CODE varchar(15) primary key,
 EMAIL varchar(10) ,
 EXPIRATION_DATE date,
 PERCENT decimal(2,2),
+HANDICAP text(1),
 constraint COUPON_EMAIL foreign key (EMAIL) references USERS (EMAIL)
 );
 
