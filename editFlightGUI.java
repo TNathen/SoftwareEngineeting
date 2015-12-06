@@ -224,7 +224,8 @@ public class editFlightGUI extends JFrame implements ActionListener
 	            t5.setText(rs.getString("BASE_PRICE"));
 	            t6.setText(rs.getString("PLANE_TYPE"));
 	            t7.setText(rs.getString("FLIGHT_TIME"));
-	            
+	            rs.close();
+	            conn.close();
             
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
