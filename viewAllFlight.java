@@ -81,6 +81,7 @@ public class viewAllFlight
             data.add(vector);
         }
         rs.close();
+        conn.close();
         complete=true;
         return data;
 	}

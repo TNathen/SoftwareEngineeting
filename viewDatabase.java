@@ -12,6 +12,9 @@ public class viewDatabase {
         Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
         Statement stat = conn.createStatement();
 
+		//addTicket thisTicket=new addTicket("3542733937","u@ser.mail",5,5,20.0,"6011906589454570","123 baker","A",0,"Y");
+
+        
         ResultSet rs1 = stat.executeQuery("select * from ADMINS;");
         System.out.println("ADMINS table");
         while (rs1.next()) 
@@ -31,7 +34,7 @@ public class viewDatabase {
         }
         System.out.println("");
         rs2.close();
-        /*
+        
         ResultSet rs3 = stat.executeQuery("select * from FLIGHTS;");
         System.out.println("FLIGHTS table");
         while (rs3.next()) 
@@ -43,9 +46,7 @@ public class viewDatabase {
         System.out.println("");
         rs3.close();
            
-        */
-        stat.executeUpdate("UPDATE TICKETS SET U_EMAIL = 'work@mail.com' WHERE U_EMAIL = \"u@ser.mail\";");
-
+        
         ResultSet rs4 = stat.executeQuery("select * from TICKETS;");
         System.out.println("TICKETS table");
         while (rs4.next()) 
@@ -53,7 +54,7 @@ public class viewDatabase {
             System.out.println(rs4.getString("FLIGHT_NUM") + " " + rs4.getString("U_EMAIL") + " " + 
         rs4.getInt("PLANE_TYPE") + " " + rs4.getString("TICKET_NUMBER") + " " + 
         rs4.getDouble("TICKET_VALUE") + " " + rs4.getString("CREDIT_CARD") + " " + rs4.getString("ADDRESS") + " " + 
-        rs4.getString("DATE_PURCHASED") );
+        rs4.getString("DATE_PURCHASED") +" "+rs4.getString("FOOD")+" "+rs4.getString("BAGGAGE_NUM")+" "+rs4.getString("HANDICAP"));
         }
         System.out.println("");
         rs4.close();

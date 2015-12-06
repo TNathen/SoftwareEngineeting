@@ -20,5 +20,6 @@ public class addTicket
         
         stat.executeUpdate("INSERT INTO TICKETS (FLIGHT_NUM,U_EMAIL,PLANE_TYPE,TICKET_NUMBER,TICKET_VALUE,CREDIT_CARD,ADDRESS,DATE_PURCHASED,FOOD,BAGGAGE_NUM,HANDICAP) "
         		+"VALUES (\""+flightNum+"\",\""+email+"\","+planeType+","+tNum+","+tPrice+",\""+cCard+"\",\""+address+"\",\""+present+"\",\'"+food+"\',"+baggageNum+","+handicap+");"); 	
+		conn.close();
 	}
 }

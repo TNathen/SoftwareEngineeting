@@ -216,24 +216,26 @@ class Flight_SearchGUIFrame extends JFrame {
         
         ResultSet rs = stat.executeQuery("select count(*) from TICKETS where FLIGHT_NUM = "+ fNum +";");
         System.out.println(rs.getInt(1)+ "   who");
+        int a=rs.getInt(1);
+        conn.close();
         if(plane == 1 || plane ==2)
         {
-        	if(rs.getInt(1) < 60)return true;
+        	if(a < 60)return true;
         	else return false;
         }
         else if(plane == 3)
         {
-        	if(rs.getInt(1) < 71)return true;
+        	if(a < 71)return true;
         	else return false;
         }
         else if(plane == 4)
         {
-        	if(rs.getInt(1) < 90)return true;
+        	if(a < 90)return true;
         	else return false;
         }
         else if(plane == 5)
         {
-        	if(rs.getInt(1) < 50)return true;
+        	if(a < 50)return true;
         	else return false;
         }
         return false;

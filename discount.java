@@ -26,6 +26,7 @@ public class discount
         	needsDiscount=true;
         }
         rs.close();
+        conn.close();
 	}
 	public static boolean getDiscount()
 	{

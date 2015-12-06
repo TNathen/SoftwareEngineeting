@@ -61,6 +61,7 @@ public class replaceUser
         	//replace with something else
             System.out.println("Email already in the database");
         }
+        conn.close();
 	}
 	public boolean isSuccessful()
 	{

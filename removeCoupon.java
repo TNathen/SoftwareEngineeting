@@ -11,6 +11,7 @@ public class removeCoupon
         Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
         Statement stat = conn.createStatement();
         stat.executeUpdate("DELETE from COUPONS where CODE=\""+code+"\";");
+        conn.close();
 	}
 
 }
