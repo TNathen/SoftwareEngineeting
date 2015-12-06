@@ -134,7 +134,7 @@ class Main_ScreenGUIFrame extends JFrame {
         	{
         		if(Integer.parseInt(dateFormat.format(today)) > Integer.parseInt(date.substring(0, 4)+date.substring(5, 7)+date.substring(8)))
         		{
-        			JOptionPane.showMessageDialog(mainframe, "Date incorrect");
+        			JOptionPane.showMessageDialog(mainframe, "Please pick a future date.");
         			return;
         		}
         		vars.add("FLIGHT_TIME");

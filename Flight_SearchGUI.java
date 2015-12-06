@@ -136,7 +136,11 @@ class Flight_SearchGUIFrame extends JFrame {
         if((int)table.getModel().getValueAt(table.getSelectedRow(), flight_num_location) == 1)
         {
         	try {
-        		System.out.println(1);
+        		if(!CheckIfFull(flight, 1))
+        		{
+        			JOptionPane.showMessageDialog(mainframe, "This flight is currently fully booked. Please choose another flight.");
+        			return;
+        		}
             	Flight_SeatingGUI flightseatingGUI = new Flight_SeatingGUI(flight,email);
     		} catch (Exception e) {
     			e.printStackTrace();
@@ -146,7 +150,11 @@ class Flight_SearchGUIFrame extends JFrame {
         if((int)table.getModel().getValueAt(table.getSelectedRow(), flight_num_location) == 2)
         {
         	try {
-        		System.out.println(2);
+        		if(!CheckIfFull(flight, 2))
+        		{
+        			JOptionPane.showMessageDialog(mainframe, "This flight is currently fully booked. Please choose another flight.");
+        			return;
+        		}
             	Flight_SeatingGUI2 flightseatingGUI = new Flight_SeatingGUI2(flight,email);
     		} catch (Exception e) {
     			e.printStackTrace();
@@ -156,7 +164,11 @@ class Flight_SearchGUIFrame extends JFrame {
         if((int)table.getModel().getValueAt(table.getSelectedRow(), flight_num_location) == 3)
         {
         	try {
-        		System.out.println(3);
+        		if(!CheckIfFull(flight, 3))
+        		{
+        			JOptionPane.showMessageDialog(mainframe, "This flight is currently fully booked. Please choose another flight.");
+        			return;
+        		}
             	Flight_SeatingGUI3 flightseatingGUI = new Flight_SeatingGUI3(flight,email);
     		} catch (Exception e) {
     			e.printStackTrace();
@@ -166,6 +178,11 @@ class Flight_SearchGUIFrame extends JFrame {
         if((int)table.getModel().getValueAt(table.getSelectedRow(), flight_num_location) == 4)
         {
         	try {
+        		if(!CheckIfFull(flight, 4))
+        		{
+        			JOptionPane.showMessageDialog(mainframe, "This flight is currently fully booked. Please choose another flight.");
+        			return;
+        		}
             	Flight_SeatingGUI4 flightseatingGUI = new Flight_SeatingGUI4(flight,email);
     		} catch (Exception e) {
     			e.printStackTrace();
@@ -174,7 +191,13 @@ class Flight_SearchGUIFrame extends JFrame {
         }
         if((int)table.getModel().getValueAt(table.getSelectedRow(), flight_num_location) == 5)
         {
+        	
         	try {
+        		if(!CheckIfFull(flight, 5))
+        		{
+        			JOptionPane.showMessageDialog(mainframe, "This flight is currently fully booked. Please choose another flight.");
+        			return;
+        		}
             	Flight_SeatingGUI5 flightseatingGUI = new Flight_SeatingGUI5(flight,email);
     		} catch (Exception e) {
     			e.printStackTrace();
@@ -185,6 +208,37 @@ class Flight_SearchGUIFrame extends JFrame {
         
         
       }
+
+	private boolean CheckIfFull(String fNum, int plane) throws ClassNotFoundException, SQLException {
+		Class.forName("org.sqlite.JDBC");
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
+        Statement stat = conn.createStatement();
+        
+        ResultSet rs = stat.executeQuery("select count(*) from TICKETS where FLIGHT_NUM = "+ fNum +";");
+        System.out.println(rs.getInt(1)+ "   who");
+        if(plane == 1 || plane ==2)
+        {
+        	if(rs.getInt(1) < 60)return true;
+        	else return false;
+        }
+        else if(plane == 3)
+        {
+        	if(rs.getInt(1) < 71)return true;
+        	else return false;
+        }
+        else if(plane == 4)
+        {
+        	if(rs.getInt(1) < 90)return true;
+        	else return false;
+        }
+        else if(plane == 5)
+        {
+        	if(rs.getInt(1) < 50)return true;
+        	else return false;
+        }
+        return false;
+        
+	}
     };
     searchbutton.addActionListener(submitlistener);
     
