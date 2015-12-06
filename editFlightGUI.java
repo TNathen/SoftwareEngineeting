@@ -1,5 +1,9 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -14,7 +18,7 @@ public class editFlightGUI extends JFrame implements ActionListener
 {
     private final JLabel l1, l2, l3, l4, l5, l6, l7, l8;
     private final JTextField t1, t2, t3, t4, t5, t6, t7;
-    private final JButton b1, b2, b3;
+    private final JButton b1, b2, b3, b4;
     Vector<Vector<Object>> row;
     int rowNumber;
     JScrollPane scrollable1;
@@ -22,7 +26,7 @@ public class editFlightGUI extends JFrame implements ActionListener
     
     public editFlightGUI(String PLANE_ID,String FLIGHT_NUM,String START_LOC,String END_LOC,String BASE_PRICE,String PLANE_TYPE,String FLIGHT_TIME, Vector<Vector<Object>> rowData , int rowNum, JScrollPane scrollable)
     {
-        super("edit Flight");
+        super("Edit Flight");
         setLayout(null);
         setSize(500, 500);
         setResizable(false);
@@ -44,24 +48,30 @@ public class editFlightGUI extends JFrame implements ActionListener
         t5 = new JTextField();
         t6 = new JTextField();
         t7 = new JTextField();
-        b1 = new JButton("edit Flight");
+        b1 = new JButton("Add Flight");
         b2 = new JButton("Clear");
         b3 = new JButton("Exit");
-        
+        b4 = new JButton("Check Number");
+
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
-        
+        b4.addActionListener(this);
+
         l1.setBounds(170, 10, 500, 30);
         l2.setBounds(30, 50, 200, 30);
+        
         l3.setBounds(30, 100, 200, 30);
+        
         l4.setBounds(30, 150, 200, 30);
         l5.setBounds(30, 200, 200, 30);
         l6.setBounds(30, 250, 200, 30);
         l7.setBounds(30, 300, 200, 30);
         l8.setBounds(30, 350, 200, 30);
         t1.setBounds(250, 50, 200, 30);
+        
         t2.setBounds(250, 100, 200, 30);
+        
         t3.setBounds(250, 150, 200, 30);
         t4.setBounds(250, 200, 200, 30);
         t5.setBounds(250, 250, 200, 30);
@@ -70,6 +80,9 @@ public class editFlightGUI extends JFrame implements ActionListener
         b1.setBounds(40, 400, 100, 30);
         b2.setBounds(190, 400, 100, 30);
         b3.setBounds(340, 400, 100, 30);
+        
+        b4.setBounds(120,100,130,30);
+
         
         add(l1);
         add(l2);
@@ -89,14 +102,7 @@ public class editFlightGUI extends JFrame implements ActionListener
         add(b1);
         add(b2);
         add(b3);
-        
-        t1.setText(PLANE_ID);
-        t2.setText(FLIGHT_NUM);
-        t3.setText(START_LOC);
-        t4.setText(END_LOC);
-        t5.setText(BASE_PRICE);
-        t6.setText(PLANE_TYPE);
-        t7.setText(FLIGHT_TIME);
+        add(b4);
         
         setVisible(true);
         
@@ -202,6 +208,29 @@ public class editFlightGUI extends JFrame implements ActionListener
         else if(e.getSource()==b3)
         {
             dispose();
+        }
+        else if(e.getSource()==b4)
+        {
+            String flightNum = t2.getText();
+            try {
+				Class.forName("org.sqlite.JDBC");
+				Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
+				Statement stat = conn.createStatement();
+				
+		        ResultSet rs = stat.executeQuery("select * from FLIGHTS where FLIGHT_NUM = \""+flightNum+"\";");
+	            t1.setText(rs.getString("PLANE_ID"));
+	            t3.setText(rs.getString("START_LOC"));
+	            t4.setText(rs.getString("END_LOC"));
+	            t5.setText(rs.getString("BASE_PRICE"));
+	            t6.setText(rs.getString("PLANE_TYPE"));
+	            t7.setText(rs.getString("FLIGHT_TIME"));
+	            
+            
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+            
         }
     }
     

@@ -73,24 +73,41 @@ public class deleteFlightGUI extends JFrame implements ActionListener
             String FlightNum = t1.getText();
             
             try {
-				deleteFlight thisFlight=new deleteFlight(FlightNum);
-				if(thisFlight.complete()==true)
-				{
-	                JOptionPane.showMessageDialog(this, "Flight has been deleted");
-	                row.removeElementAt(rowNumber);
-	                scrollable1.repaint();
-				}
-				else
-				{
-					if(thisFlight.foundFlight()==false)
-					{
-		                JOptionPane.showMessageDialog(this, "Flight number does not exist");
-					}
-					else
-					{
-		                JOptionPane.showMessageDialog(this, "People have already bought tickets for this flight");
-					}
-				}
+            	
+            	
+                int response = JOptionPane.showConfirmDialog(this, "Are you "
+                        + "sure you want to remove the flight?", "Remove "
+                        + "Flight", JOptionPane.YES_NO_OPTION);
+                if (response == JOptionPane.YES_OPTION)
+                {
+                    //Code here to remove flight from database
+    				deleteFlight thisFlight=new deleteFlight(FlightNum);
+    				if(thisFlight.complete()==true)
+    				{
+    	                JOptionPane.showMessageDialog(this, "Flight has been deleted");
+    	                row.removeElementAt(rowNumber);
+    	                scrollable1.repaint();
+    				}
+    				else
+    				{
+    					if(thisFlight.foundFlight()==false)
+    					{
+    		                JOptionPane.showMessageDialog(this, "Flight number does not exist");
+    					}
+    					else
+    					{
+    		                JOptionPane.showMessageDialog(this, "People have already bought tickets for this flight");
+    					}
+    				}
+                }
+                else if(response == JOptionPane.NO_OPTION)
+                {
+                	//dunno
+                }
+            	
+            	
+            	
+
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
