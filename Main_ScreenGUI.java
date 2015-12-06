@@ -54,6 +54,8 @@ class Main_ScreenGUIFrame extends JFrame {
         JButton searchbutton = new JButton("Submit");
         JButton registerbutton = new JButton("Register");
         JButton loginbutton = new JButton("Login");
+        JButton logoutbutton = new JButton("Log out");
+        JButton Accountbutton = new JButton("Acccount page");
         String[] start = both;
         String[] end = both;
 
@@ -80,6 +82,8 @@ class Main_ScreenGUIFrame extends JFrame {
         
         p3.add(registerbutton);
         p3.add(loginbutton);
+        p3.add(logoutbutton);
+        p3.add(Accountbutton);
     
         //calendar at the end, needs DateLabelFormatter.java
         UtilDateModel model = new UtilDateModel();
@@ -192,6 +196,42 @@ class Main_ScreenGUIFrame extends JFrame {
       }
     };
     loginbutton.addActionListener(loginlistener);
+    
+    ActionListener logoutistener = new ActionListener() {
+        public void actionPerformed(ActionEvent actionEvent) {
+          AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
+          boolean selected = abstractButton.getModel().isSelected();
+          System.out.println("Log out button has been clicked");
+          if(email[0]!="")
+          {
+              email[0]="";
+              JOptionPane.showMessageDialog(mainframe, "You have been logged out");
+          }
+          else
+          {
+              JOptionPane.showMessageDialog(mainframe, "You have not been signed in to be logged out");
+          }
+        }
+      };
+      logoutbutton.addActionListener(logoutistener);
+      
+      ActionListener Accountlistener = new ActionListener() {
+          public void actionPerformed(ActionEvent actionEvent) {
+            AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
+            boolean selected = abstractButton.getModel().isSelected();
+            System.out.println("Account button has been clicked");
+    		//kdsklfnlknlnlfd
+            if(email[0]!="")
+            {
+            	AccountGUI account=new AccountGUI(email);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(mainframe, "You are not signed in to view account page");
+            }
+          }
+        };
+        Accountbutton.addActionListener(Accountlistener);
     
     DocumentListener documentListener = new DocumentListener() {
         public void changedUpdate(DocumentEvent documentEvent) {

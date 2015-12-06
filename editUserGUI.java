@@ -31,8 +31,8 @@ public class editUserGUI extends JFrame implements ActionListener
     private final String validPhone = "^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})"
             + "[-.\\s]?([0-9]{4})$";
     private final String validPassword = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})";
-    String email;
-    public editUserGUI(String TheEmail) throws Exception
+    String[] email;
+    public editUserGUI(String[] TheEmail) throws Exception
     {
         super("Edit Account");
         setLayout(null);
@@ -155,7 +155,7 @@ public class editUserGUI extends JFrame implements ActionListener
         Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
         Statement stat = conn.createStatement();
 		        
-        ResultSet rs = stat.executeQuery("select * from USERS where EMAIL = \""+email+"\" ;");
+        ResultSet rs = stat.executeQuery("select * from USERS where EMAIL = \""+email[0]+"\" ;");
         while (rs.next()) 
         {
             p1.setText(rs.getString("PASS"));
@@ -236,7 +236,7 @@ public class editUserGUI extends JFrame implements ActionListener
                                 if(2015-birthYear >= 18)
                                 {
                                     Pattern emailPattern = Pattern.compile(validEmail);
-                                    Matcher emailMatcher = emailPattern.matcher(email);
+                                    Matcher emailMatcher = emailPattern.matcher(email[0]);
                                     if("".equals(email))
                                     {
                                         JOptionPane.showMessageDialog(this, "Please enter e-mail");
@@ -277,19 +277,20 @@ public class editUserGUI extends JFrame implements ActionListener
                                                                 //Code here to store information in database
                                                             	
                                                                 try {
-                                                                	if(newEmail.compareToIgnoreCase(email)==0)
+                                                                	if(newEmail.compareToIgnoreCase(email[0])==0)
                                                                 	{
-            															editUser thisPerson=new editUser(email,password1,firstName,lastName,phoneNumber,dateOfBirth,Squestion,Sanswer);
+            															editUser thisPerson=new editUser(email[0],password1,firstName,lastName,phoneNumber,dateOfBirth,Squestion,Sanswer);
         		                                                        JOptionPane.showMessageDialog(this, "Account has been edited");
             															dispose();
                                                                 	}
                                                                 	else
         															{
-            															replaceUser thisPerson=new replaceUser(newEmail,email,password1,firstName,lastName,phoneNumber,dateOfBirth,Squestion,Sanswer);
+            															replaceUser thisPerson=new replaceUser(newEmail,email[0],password1,firstName,lastName,phoneNumber,dateOfBirth,Squestion,Sanswer);
             															System.out.println(thisPerson.isSuccessful());
                                                                 		if(thisPerson.isSuccessful()==true)//new email not in data base
                                                                 		{
             		                                                        JOptionPane.showMessageDialog(this, "Account has been edited");
+            		                                                        email[0]=newEmail;
             		                                                        dispose();
                                                                 		}
                                                                 		else
@@ -396,13 +397,4 @@ public class editUserGUI extends JFrame implements ActionListener
             dispose();
         }
     }
-    
-    public static void main(String[] args)
-    {
-    	try {
-			editUserGUI editGUI = new editUserGUI("bork@mail.com");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    } 
 }

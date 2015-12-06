@@ -41,8 +41,14 @@ public class viewTickets
             x = x.substring(0, 4) + "-" + x.substring(4, 6) + "-" + x.substring(6, 8);
             Tickets[counter2][6]=x;
             
-
-            Tickets[counter2][7]=rs2.getString("HANDICAP");
+            if(rs2.getString("HANDICAP").compareTo("0")==0)
+            {
+                Tickets[counter2][7]="N";
+            }
+            else
+            {
+                Tickets[counter2][7]="Y";
+            }
 
             counter2++;
         }

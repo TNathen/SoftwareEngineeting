@@ -28,7 +28,16 @@ public class AccountGUI{
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception e) {}
-        JFrame accountGUIframe = new AccountGUIFrame();
+        String email[]={"u@ser.mail"};
+        JFrame accountGUIframe = new AccountGUIFrame(email);
+        accountGUIframe.setVisible(true);
+    }
+    public AccountGUI(String email[])
+    {
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception e) {}
+        JFrame accountGUIframe = new AccountGUIFrame(email);
         accountGUIframe.setVisible(true);
     }
 }
@@ -36,9 +45,9 @@ public class AccountGUI{
 class AccountGUIFrame extends JFrame {
     
 	JTable table;
-    String email="work@mail.com";
+    String Email[];;
 
-  public AccountGUIFrame() {
+  public AccountGUIFrame(String email[]) {
     super("Account Menu");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(400,300);
@@ -47,7 +56,7 @@ class AccountGUIFrame extends JFrame {
     JButton backbutton=new JButton("Back");
     JButton editAccount=new JButton("Edit Account Info");
     
-    email="work@mail.com";
+    Email=email;
     
     mainframe.setLayout(new BoxLayout(mainframe, BoxLayout.Y_AXIS));
     JPanel p1 = new JPanel();  //table panel
@@ -64,7 +73,7 @@ class AccountGUIFrame extends JFrame {
     viewTickets thisUser=new viewTickets();
     Object rowData[][] = null;
 	try {
-		rowData = thisUser.makeArray(email);
+		rowData = thisUser.makeArray(Email[0]);
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
@@ -76,7 +85,7 @@ class AccountGUIFrame extends JFrame {
     viewCoupon thisUserC=new viewCoupon();
     Object rowData2[][] = null;
 	try {
-		rowData2 = thisUserC.makeArray(email);
+		rowData2 = thisUserC.makeArray(Email[0]);
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
@@ -116,7 +125,7 @@ class AccountGUIFrame extends JFrame {
           boolean selected = abstractButton.getModel().isSelected();
           System.out.println("edit button has been clicked");
           try {
-			editUserGUI edit=new editUserGUI(email);
+			editUserGUI edit=new editUserGUI(Email);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
