@@ -42,11 +42,11 @@ class Main_ScreenGUIFrame extends JFrame {
         String[] states = new String[]{"Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"};
         String[] cap = new String[]{"Montgomery","Juneau","Phoenix","Little Rock","Sacramento","Denver","Hartford","Dover","Tallahassee","Atlanta","Honolulu","Boise","Springfield","Indianapolis","Des Moines","Topeka","Frankfort","Baton Rouge","Augusta","Annapolis","Boston","Lansing","St. Paul","Jackson","Jefferson City","Helena","Lincoln","Carson City","Concord","Trenton","Santa Fe","Albany","Raleigh","Bismarck","Columbus","Oklahoma City","Salem","Harrisburg","Providence","Columbia","Pierre","Nashville","Austin","Salt Lake City","Montpelier","Richmond","Olympia","Charleston","Madison","Cheyenne"};
         String[] both= new String[51];
-	both[0] = "";
-	for(int i=1; i<51; i++)
-	{
+        both[0] = "";
+        for(int i=1; i<51; i++)
+        {
             both[i] = cap[i-1] + ", " + states[i-1];
-	}
+        }
     
         JTextField area2 = new JTextField();
         JTextField searchtext = new JTextField();
@@ -57,8 +57,8 @@ class Main_ScreenGUIFrame extends JFrame {
         String[] start = both;
         String[] end = both;
 
-        final JComboBox dropdown1 = new JComboBox(start);
-        final JComboBox dropdown2 = new JComboBox(end);
+        final JComboBox<String> dropdown1 = new JComboBox<String>(start);
+        final JComboBox<String> dropdown2 = new JComboBox<String>(end);
     
         searchtext.setAlignmentY(LEFT_ALIGNMENT);
     
@@ -75,7 +75,7 @@ class Main_ScreenGUIFrame extends JFrame {
         p4.setLayout(new BoxLayout(p4, BoxLayout.X_AXIS));
         
         p1.setBorder(BorderFactory.createTitledBorder("Seach by start location, end location, and/or date"));
-        p2.setBorder(BorderFactory.createTitledBorder("SEARCH"));
+        p2.setBorder(BorderFactory.createTitledBorder("DATE"));
         p3.setBorder(BorderFactory.createTitledBorder("User Account"));
         
         p3.add(registerbutton);
@@ -90,6 +90,7 @@ class Main_ScreenGUIFrame extends JFrame {
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         final JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
+        
         p2.add(datePicker);
 
         // USEFUL INFORMATION FOR MICHAEL C.: remember to add ActionListeners for selection menus

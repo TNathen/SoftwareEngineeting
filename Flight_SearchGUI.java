@@ -73,7 +73,7 @@ class Flight_SearchGUIFrame extends JFrame {
     Class.forName("org.sqlite.JDBC");
     Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
     Statement stat = conn.createStatement();
-    ResultSet rs = stat.executeQuery(select);
+    ResultSet rs = stat.executeQuery("select FLIGHT_NUM, START_LOC, END_LOC, PLANE_TYPE, FLIGHT_TIME from FLIGHTS " + select);
     //FLIGHT_TIME
     ResultSetMetaData metaData = rs.getMetaData();
 
@@ -92,7 +92,7 @@ class Flight_SearchGUIFrame extends JFrame {
         for (int columnIndex = 1; columnIndex <= columnCount-2; columnIndex++) {
             vector.add(rs.getObject(columnIndex));
         }
-
+        
         String x = (String) rs.getObject(columnCount);
         
         x = x.substring(0, 4) + "-" + x.substring(4, 6) + "-" + x.substring(6, 11)+":"+x.substring(11, 13);
@@ -102,7 +102,14 @@ class Flight_SearchGUIFrame extends JFrame {
     }
     conn.close();
     
-    final JTable table = new JTable(data, columnNames);
+    final JTable table = new JTable(data, columnNames){
+
+	    @Override
+	    public boolean isCellEditable(int row, int column) {
+	       //all cells false
+	       return false;
+	    }
+	};
     JScrollPane scrollable = new JScrollPane(table);
     
     
