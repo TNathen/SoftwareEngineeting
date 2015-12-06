@@ -47,12 +47,12 @@ class Flight_SearchGUIFrame extends JFrame {
 
 	String flight;
 	int flight_num_location;
-    
+	JPanel mainframe;
   public Flight_SearchGUIFrame(String select,final String email) throws Exception {
     super("Flight Search");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setSize(400,600);
-    JPanel mainframe = new JPanel();
+    mainframe = new JPanel();
 
     JButton searchbutton=new JButton("Submit");
     JButton cancelbutton=new JButton("Cancel");

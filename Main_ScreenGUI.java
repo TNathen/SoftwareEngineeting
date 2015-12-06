@@ -29,7 +29,7 @@ public class Main_ScreenGUI{
 class Main_ScreenGUIFrame extends JFrame {
     
     String email[] = new String[1];
-  
+    JPanel mainframe;
     public Main_ScreenGUIFrame() {
         super("Main Screen");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,7 +50,7 @@ class Main_ScreenGUIFrame extends JFrame {
     
         JTextField area2 = new JTextField();
         JTextField searchtext = new JTextField();
-        JPanel mainframe = new JPanel();
+        mainframe = new JPanel();
         JButton searchbutton = new JButton("Submit");
         JButton registerbutton = new JButton("Register");
         JButton loginbutton = new JButton("Login");
