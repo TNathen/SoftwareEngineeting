@@ -3,7 +3,9 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -124,41 +126,49 @@ class Main_ScreenGUIFrame extends JFrame {
             String start = dropdown1.getSelectedItem().toString();
             String end = dropdown2.getSelectedItem().toString();
             ArrayList<String> vars = new ArrayList<String>();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            Date today = new Date();
 
-
-            if(!date.equals(""))
-            {
-                System.out.println(start.length());
-                vars.add("FLIGHT_TIME");
-                vars.add(date.substring(0, 4)+date.substring(5, 7)+date.substring(8));
-            }
-            if(!start.equals(""))
-            {
-                System.out.println(start.length());
-                System.out.println(dropdown2.getSelectedItem().toString());
-                vars.add("START_LOC");
-                vars.add(start);
-            }
-            if(!end.equals("")) 
-            {
-                System.out.println(end.length());
-                vars.add("END_LOC");
-                vars.add(end);
-            }
-            vars.add("panic");
-            vars.add("panic2");
-            System.out.println(vars);
-            String last = (new Pull_Flight_Info(vars)).get();
-            System.out.println(last);
-            try {
-                Flight_SearchGUI flightsearchGUIframe  = new Flight_SearchGUI(last,email[0]);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("panic3");
-            }
-        }
+        if(!date.equals("")) 
+        	{
+        		if(Integer.parseInt(dateFormat.format(today)) > Integer.parseInt(date.substring(0, 4)+date.substring(5, 7)+date.substring(8)))
+        		{
+        			JOptionPane.showMessageDialog(mainframe, "Date incorrect");
+        			return;
+        		}
+        		vars.add("FLIGHT_TIME");
+        		vars.add(date.substring(0, 4)+date.substring(5, 7)+date.substring(8));
+        		
+        		
+        	}
+        if(!start.equals("")) 
+    	{
+        	System.out.println(start.length());
+        	System.out.println(dropdown2.getSelectedItem().toString());
+    		vars.add("START_LOC");
+    		vars.add(start);
+    	}
+        if(!end.equals("")) 
+    	{
+        	System.out.println(end.length());
+    		vars.add("END_LOC");
+    		vars.add(end);
+    	}
+        vars.add("panic");
+        vars.add("panic2");
+        System.out.println(vars);
+        String last = (new Pull_Flight_Info(vars, dateFormat.format(today))).get();
+        System.out.println(last);
+        try {
+        	Flight_SearchGUI flightsearchGUIframe  = new Flight_SearchGUI(last,email[0]);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("panic3");
+		}
+      }
     };
     searchbutton.addActionListener(submitlistener);
+    
     
     //the code below listens for when the Register button is clicked
     ActionListener registerlistener = new ActionListener() {
@@ -213,4 +223,3 @@ class Main_ScreenGUIFrame extends JFrame {
     area2.getDocument().addDocumentListener(documentListener);
     }
 }
-

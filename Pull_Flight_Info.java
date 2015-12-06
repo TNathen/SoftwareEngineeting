@@ -1,8 +1,10 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Pull_Flight_Info {
 	String r;
-	public Pull_Flight_Info(ArrayList<String> input)
+	public Pull_Flight_Info(ArrayList<String> input, String today)
 	{
 		ArrayList<String> columnName = new ArrayList<String>();
 		ArrayList<String> value = new ArrayList<String>();
@@ -22,9 +24,19 @@ public class Pull_Flight_Info {
 		
 		StringBuilder query = new StringBuilder();
 		query.append("select FLIGHT_NUM, START_LOC, END_LOC, PLANE_TYPE, FLIGHT_TIME from FLIGHTS ");
-		if(!columnName.isEmpty())query.append(" where "); 
+		
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("hhss");
+		Date time = new Date();
+
+		today.concat(" "+dateFormat.format(time).toString());
+		query.append(" where CAST(FLIGHT_TIME AS INTEGER) > "+today);
+
+		
+		
 		while(!columnName.isEmpty())
 		{
+			query.append(" AND ");
 			if(columnName.get(0) == "FLIGHT_TIME")
 			{
 				query.append("FLIGHT_TIME like \'"+value.get(0)+"%\'");
@@ -36,7 +48,7 @@ public class Pull_Flight_Info {
 				columnName.remove(0);
 				value.remove(0);
 			}
-			if(!columnName.isEmpty()) query.append(" AND ");
+			
 		}
 		query.append(" ORDER BY FLIGHT_TIME LIMIT 50;");
 		r = query.toString();
