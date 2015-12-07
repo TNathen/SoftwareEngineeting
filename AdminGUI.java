@@ -70,6 +70,7 @@ class AdminGUIFrame extends JFrame {
     JButton addflightbutton=new JButton("Add Flight");
     JButton editflightbutton=new JButton("Edit Flight");
     JButton deleteflightbutton=new JButton("Delete Flight");
+    JButton addAdminbutton=new JButton("Add Admin");
     JButton donebutton=new JButton("Done");
     
     //filter parts
@@ -141,6 +142,7 @@ class AdminGUIFrame extends JFrame {
     p2.add(addflightbutton);
     p2.add(editflightbutton);
     p2.add(deleteflightbutton);
+    p2.add(addAdminbutton);
     p2.add(donebutton);
     
     
@@ -224,6 +226,16 @@ class AdminGUIFrame extends JFrame {
       }
     };
     addflightbutton.addActionListener(addlistener);
+    
+    ActionListener addAlistener = new ActionListener() {
+        public void actionPerformed(ActionEvent actionEvent) {
+          AbstractButton abstractButton = (AbstractButton) actionEvent.getSource();
+          boolean selected = abstractButton.getModel().isSelected();
+          System.out.println("DONE button has been clicked");
+          addAdminGUI addA=new addAdminGUI();
+        }
+      };
+      addAdminbutton.addActionListener(addAlistener);
     
     //the code below listens for when the DONE button is clicked
     ActionListener donelistener = new ActionListener() {

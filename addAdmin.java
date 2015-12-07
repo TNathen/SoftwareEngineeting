@@ -46,6 +46,7 @@ public class addAdmin
         	//replace with something else
             System.out.println("Email already in the database");
         }
+        
 	}
 	
 	public boolean isSuccessful()

@@ -122,34 +122,42 @@ public class LoginGUI extends JFrame implements ActionListener
         {
         	//forgot password
             String email = t1.getText();
-        	try {
-        		boolean emailInUserDB = false;
+            if(email.compareTo("")==0)
+            {
+                JOptionPane.showMessageDialog(this, "Enter an e-mail");
+            }
+            else
+            {
+            	try {
+            		boolean emailInUserDB = false;
 
-                Class.forName("org.sqlite.JDBC");
-                Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
-                Statement stat = conn.createStatement();
-                ResultSet rs1 = stat.executeQuery("select * from USERS;");
-                while (rs1.next()) 
-                {
-                	if (rs1.getString("EMAIL").compareToIgnoreCase(email)==0)
-                	{
-                		emailInUserDB = true;
-                	}
-                }
-                rs1.close();
-                if (emailInUserDB == true)
-                {
-    				forgotPasswordGUI tryReset=new forgotPasswordGUI(email);
-                }
-                else
-                {
-	                JOptionPane.showMessageDialog(this, "E-mail does not exist in database");
-                }
-                conn.close();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+                    Class.forName("org.sqlite.JDBC");
+                    Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
+                    Statement stat = conn.createStatement();
+                    ResultSet rs1 = stat.executeQuery("select * from USERS;");
+                    while (rs1.next()) 
+                    {
+                    	if (rs1.getString("EMAIL").compareToIgnoreCase(email)==0)
+                    	{
+                    		emailInUserDB = true;
+                    	}
+                    }
+                    rs1.close();
+                    if (emailInUserDB == true)
+                    {
+        				forgotPasswordGUI tryReset=new forgotPasswordGUI(email);
+                    }
+                    else
+                    {
+    	                JOptionPane.showMessageDialog(this, "E-mail does not exist in database");
+                    }
+                    conn.close();
+    			} catch (Exception e1) {
+    				// TODO Auto-generated catch block
+    				e1.printStackTrace();
+    			}
+            }
+
         }
     }
     public void getUserEmail(String email)

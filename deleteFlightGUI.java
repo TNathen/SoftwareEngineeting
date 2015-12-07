@@ -45,9 +45,9 @@ public class deleteFlightGUI extends JFrame implements ActionListener
         l2.setBounds(30, 50, 200, 30);
 
         t1.setBounds(250, 50, 200, 30);
-        b1.setBounds(40, 150, 100, 30);
+        b1.setBounds(340, 150, 100, 30);
         b2.setBounds(190, 150, 100, 30);
-        b3.setBounds(340, 150, 100, 30);
+        b3.setBounds(40, 150, 100, 30);
 
         add(l1);
         add(l2);
