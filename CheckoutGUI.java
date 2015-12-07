@@ -1,10 +1,12 @@
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.*;
 
 import java.awt.event.*;
 import javax.swing.JOptionPane;
 import javax.swing.ButtonGroup;
+import javax.swing.text.Document;
 
 
 public class CheckoutGUI{
@@ -22,11 +24,20 @@ class CheckoutGUIFrame extends JFrame {
     JPanel mainframe;
     JLabel credname;
     JLabel crednum;
+    JLabel csc;
     JLabel expdate;
+    JLabel street;
+    JLabel city;
+    JLabel state;
+    JLabel zip;
     JTextField creditcard;
     JTextField creditname;
+    JTextField securitycode;
     JTextField expiredate;
-    JTextField addresstext;
+    JTextField streettext;
+    JTextField citytext;
+    JTextField statetext;
+    JTextField ziptext;
     JTextField couponcode;
     JRadioButton visa ;
     JRadioButton mastercard ;
@@ -37,7 +48,7 @@ class CheckoutGUIFrame extends JFrame {
     public CheckoutGUIFrame(final int SeatNums[],final double SeatPrices[],final String SeatTypes[],final String flightNum, String Email)throws Exception {
         super("Checkout");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(500,500);
+        setSize(500,650);
         setResizable(false);
         setLocationRelativeTo(null);
         mainframe = new JPanel();
@@ -69,12 +80,21 @@ class CheckoutGUIFrame extends JFrame {
         
         credname = new JLabel("Name:");
         crednum = new JLabel("Number:");
+        csc = new JLabel("Security Code:");
         expdate = new JLabel("Expiration date:");
+        street = new JLabel("Street:");
+        city = new JLabel("City:");
+        state = new JLabel("State:");
+        zip = new JLabel("Zip Code:");
         
         creditname = new JTextField();
         creditcard = new JTextField();
+        securitycode = new JTextField();
         expiredate = new JTextField();
-        addresstext = new JTextField();
+        streettext = new JTextField();
+        citytext = new JTextField();
+        statetext = new JTextField();
+        ziptext = new JTextField();
         couponcode = new JTextField();
 
         mainframe.setLayout(new BoxLayout(mainframe, BoxLayout.Y_AXIS));
@@ -97,15 +117,13 @@ class CheckoutGUIFrame extends JFrame {
         p5.setBorder(BorderFactory.createTitledBorder("Coupon Code"));
 
         p1.add(namelabel);
-        
-        JScrollPane scrollFrame = new JScrollPane(p1);
-        p1.setAutoscrolls(true);
-        scrollFrame.setPreferredSize(new Dimension( 800,300));
-        
+
         p2.add(credname);
         p2.add(creditname);
         p2.add(crednum);
         p2.add(creditcard);
+        p2.add(csc);
+        p2.add(securitycode);
         p2.add(visa);
         p2.add(amex);
         p2.add(discover);
@@ -116,10 +134,19 @@ class CheckoutGUIFrame extends JFrame {
         p3.add(cancelbutton);
         p3.add(Box.createRigidArea(new Dimension(50,0)));
         p3.add(checkoutbutton);
-        p4.add(addresstext);
+        
+        p4.add(street);
+        p4.add(streettext);
+        p4.add(city);
+        p4.add(citytext);
+        p4.add(state);
+        p4.add(statetext);
+        p4.add(zip);
+        p4.add(ziptext);
+        
         p5.add(couponcode);
 
-        mainframe.add(scrollFrame);
+        mainframe.add(p1);
         mainframe.add(p2);
         mainframe.add(p4);
         mainframe.add(p5);
@@ -134,8 +161,12 @@ class CheckoutGUIFrame extends JFrame {
                 boolean selected = abstractButton.getModel().isSelected();
                 String creditCardName=creditname.getText();
                 String CreditCardNum=creditcard.getText();
+                String cardSecurityCode=securitycode.getText();
                 String creditExpireDate=expiredate.getText();
-                String address=addresstext.getText();
+                String street=streettext.getText();
+                String city=citytext.getText();
+                String state=statetext.getText();
+                String zip=ziptext.getText();
                 String coupon=couponcode.getText();
                 String cardType="";
 
@@ -177,19 +208,39 @@ class CheckoutGUIFrame extends JFrame {
                     JOptionPane.showMessageDialog(mainframe, "Enter Name please.");
 
                 }
+                else if(creditCardValid==false)
+                {
+                    JOptionPane.showMessageDialog(mainframe, "Credit card information is invalid. \n Please try again.");
+                }
+                else if(cardSecurityCode.compareTo("")==0)
+                {
+                    JOptionPane.showMessageDialog(mainframe, "Enter Card Security Code please.");
+
+                }
                 else if(creditExpireDate.compareTo("")==0)
                 {
                     JOptionPane.showMessageDialog(mainframe, "Enter Expiration Date please.");
 
                 }
-                else if(address.compareTo("")==0)
+                else if(street.compareTo("")==0)
                 {
-                    JOptionPane.showMessageDialog(mainframe, "Enter Address please.");
+                    JOptionPane.showMessageDialog(mainframe, "Enter Street please.");
 
                 }
-                else if(creditCardValid==false)
+                else if(city.compareTo("")==0)
                 {
-                    JOptionPane.showMessageDialog(mainframe, "Credit card information is invalid. \n Please try again.");
+                    JOptionPane.showMessageDialog(mainframe, "Enter City please.");
+
+                }
+                else if(state.compareTo("")==0)
+                {
+                    JOptionPane.showMessageDialog(mainframe, "Enter State please.");
+
+                }
+                else if(zip.compareTo("")==0)
+                {
+                    JOptionPane.showMessageDialog(mainframe, "Enter Zip Code please.");
+
                 }
                 else if(coupon.compareTo("")!=0&&codeExist==false)
                 {
@@ -210,7 +261,7 @@ class CheckoutGUIFrame extends JFrame {
                             newPrices[a]=SeatPrices[a]*.9;
         		}
         		try {
-                            ConfirmationGUI Confirm=new ConfirmationGUI(SeatNums,newPrices, SeatTypes, flightNum, email[0],address,CreditCardNum,coupon);
+                            ConfirmationGUI Confirm=new ConfirmationGUI(SeatNums,newPrices, SeatTypes, flightNum, email[0],street,CreditCardNum,coupon);
 			} catch (Exception e) {
                             e.printStackTrace();
 			}
@@ -219,7 +270,7 @@ class CheckoutGUIFrame extends JFrame {
                     {
         		//do not apply coupon then send all info to confirmation page
         		try {
-                            ConfirmationGUI Confirm=new ConfirmationGUI(SeatNums,SeatPrices, SeatTypes, flightNum, email[0],address,CreditCardNum,coupon);
+                            ConfirmationGUI Confirm=new ConfirmationGUI(SeatNums,SeatPrices, SeatTypes, flightNum, email[0],street,CreditCardNum,coupon);
 			} catch (Exception e) {
                             e.printStackTrace();
 			}
