@@ -104,6 +104,16 @@ public class editFlightGUI extends JFrame implements ActionListener
         add(b3);
         add(b4);
         
+        t1.setText(PLANE_ID);
+        t2.setText(FLIGHT_NUM);
+        t3.setText(START_LOC);
+        t4.setText(END_LOC);
+        t5.setText(BASE_PRICE);
+        t6.setText(PLANE_TYPE);
+        //2015-11-16 16:30
+        
+        t7.setText(FLIGHT_TIME.substring(0,4)+FLIGHT_TIME.substring(5,7)+FLIGHT_TIME.substring(8,10)+" "+FLIGHT_TIME.substring(11,13)+FLIGHT_TIME.substring(14,16));
+        
         setVisible(true);
         
         row=rowData;
