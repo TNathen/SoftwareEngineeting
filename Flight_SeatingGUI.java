@@ -267,9 +267,9 @@ class Flight_SeatingGUIFrame extends JFrame
 
 
     
-    p11.add(submitbutton);
     p11.add(cancelbutton);
-    
+    p11.add(submitbutton);
+
     
     
     mainframe.add(p1);
