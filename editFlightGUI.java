@@ -111,8 +111,10 @@ public class editFlightGUI extends JFrame implements ActionListener
         t5.setText(BASE_PRICE);
         t6.setText(PLANE_TYPE);
         //2015-11-16 16:30
-        
-        t7.setText(FLIGHT_TIME.substring(0,4)+FLIGHT_TIME.substring(5,7)+FLIGHT_TIME.substring(8,10)+" "+FLIGHT_TIME.substring(11,13)+FLIGHT_TIME.substring(14,16));
+        if(FLIGHT_TIME.length()==16)
+        {
+            t7.setText(FLIGHT_TIME.substring(0,4)+FLIGHT_TIME.substring(5,7)+FLIGHT_TIME.substring(8,10)+" "+FLIGHT_TIME.substring(11,13)+FLIGHT_TIME.substring(14,16));
+        }
         
         setVisible(true);
         
@@ -227,14 +229,32 @@ public class editFlightGUI extends JFrame implements ActionListener
 				Connection conn = DriverManager.getConnection("jdbc:sqlite:ECHO.db");
 				Statement stat = conn.createStatement();
 				
-		        ResultSet rs = stat.executeQuery("select * from FLIGHTS where FLIGHT_NUM = \""+flightNum+"\";");
-	            t1.setText(rs.getString("PLANE_ID"));
-	            t3.setText(rs.getString("START_LOC"));
-	            t4.setText(rs.getString("END_LOC"));
-	            t5.setText(rs.getString("BASE_PRICE"));
-	            t6.setText(rs.getString("PLANE_TYPE"));
-	            t7.setText(rs.getString("FLIGHT_TIME"));
-	            rs.close();
+				boolean found=false;
+		        ResultSet rs2 = stat.executeQuery("select * from FLIGHTS;");
+		        while(rs2.next())
+		        {
+		        	if(flightNum.compareToIgnoreCase(rs2.getString("FLIGHT_NUM"))==0)
+		        	{
+		        		found=true;
+		        	}
+		        }
+		        rs2.close();
+				if(found==true)
+				{
+			        ResultSet rs = stat.executeQuery("select * from FLIGHTS where FLIGHT_NUM = \""+flightNum+"\";");
+		            t1.setText(rs.getString("PLANE_ID"));
+		            t3.setText(rs.getString("START_LOC"));
+		            t4.setText(rs.getString("END_LOC"));
+		            t5.setText(rs.getString("BASE_PRICE"));
+		            t6.setText(rs.getString("PLANE_TYPE"));
+		            t7.setText(rs.getString("FLIGHT_TIME"));
+		            rs.close();
+				}
+				else
+				{
+                    JOptionPane.showMessageDialog(this, "Flight number does not exist in the database");
+				}
+
 	            conn.close();
             
 			} catch (Exception e1) {
