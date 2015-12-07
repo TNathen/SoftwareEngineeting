@@ -85,6 +85,14 @@ public class deleteFlightGUI extends JFrame implements ActionListener
     				if(thisFlight.complete()==true)
     				{
     	                JOptionPane.showMessageDialog(this, "Flight has been deleted");
+    	                for(int count =0; count<row.size(); count++)
+    	                {
+    	                	if(row.get(count).get(1).equals(t1.getText()))
+    	                	{
+    	                		rowNumber = count;
+
+    	                	}
+    	                }
     	                row.removeElementAt(rowNumber);
     	                scrollable1.repaint();
     				}

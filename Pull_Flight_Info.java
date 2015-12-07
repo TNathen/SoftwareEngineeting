@@ -49,7 +49,7 @@ public class Pull_Flight_Info {
 			}
 			
 		}
-		query.append(" ORDER BY FLIGHT_TIME LIMIT 50;");
+		query.append(" ORDER BY FLIGHT_TIME LIMIT 100;");
 		r = query.toString();
 	}
 	
@@ -91,7 +91,7 @@ public class Pull_Flight_Info {
 			}
 			if(!columnName.isEmpty())query.append(" AND ");
 		}
-		query.append(";");
+		query.append(" ORDER BY FLIGHT_TIME;");
 		r = query.toString();
 	}
 	public String get()
