@@ -30,7 +30,7 @@ public class seatInfo
 			if(seatNum>0 && seatNum<7)
 			{
 				//shove all description into the variable
-				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>It is also wheelchair accessable<br>It comes with the same benefits as business class<br>$"+price+"</html>";
+				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>We provide wheelchair services as well<br>It comes with the same benefits as business class<br>$"+price+"</html>";
 				seatType="Handicap Seat";
 			}
 			else if(seatNum>6 && seatNum<19)
@@ -66,7 +66,7 @@ public class seatInfo
 			if(seatNum>0 && seatNum<7)
 			{
 				//shove all description into the variable
-				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>It is also wheelchair accessable<br>It comes with the same benefits as business class<br>$"+price+"</html>";
+				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>We provide wheelchair services as well<br>It comes with the same benefits as business class<br>$"+price+"</html>";
 				seatType="Handicap Seat";
 			}
 			else if(seatNum>6 && seatNum<19)
@@ -102,7 +102,7 @@ public class seatInfo
 			if(seatNum>0 && seatNum<8)
 			{
 				//shove all description into the variable
-				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>It is also wheelchair accessable<br>It comes with the same benefits as business class<br>$"+price+"</html>";
+				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>We provide wheelchair services as well<br>It comes with the same benefits as business class<br>$"+price+"</html>";
 				seatType="Handicap Seat";
 			}
 			else if(seatNum>7 && seatNum<22)
@@ -138,7 +138,7 @@ public class seatInfo
 			if(seatNum>0 && seatNum<10)
 			{
 				//shove all description into the variable
-				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>It is also wheelchair accessable<br>It comes with the same benefits as business class<br>$"+price+"</html>";
+				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>We provide wheelchair services as well<br>It comes with the same benefits as business class<br>$"+price+"</html>";
 				seatType="Handicap Seat";
 			}
 			else if(seatNum>9 && seatNum<28)
@@ -174,7 +174,7 @@ public class seatInfo
 			if(seatNum>0 && seatNum<6)
 			{
 				//shove all description into the variable
-				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>It is also wheelchair accessable<br>It comes with the same benefits as business class<br>$"+price+"</html>";
+				description="<html>Handicap Seat<br>Customer must show handicap ID to the flight attendent to sit at the handicap seat<br>We provide wheelchair services as well<br>It comes with the same benefits as business class<br>$"+price+"</html>";
 				seatType="Handicap Seat";
 
 			}
