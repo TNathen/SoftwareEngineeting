@@ -1,18 +1,8 @@
-import static java.awt.Component.LEFT_ALIGNMENT;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import java.awt.Dimension;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Vector;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -51,7 +41,9 @@ class Flight_SearchGUIFrame extends JFrame {
   public Flight_SearchGUIFrame(String select,final String email) throws Exception {
     super("Flight Search");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    setSize(400,600);
+    setSize(500,500);
+    setResizable(false);
+    setLocationRelativeTo(null);
     mainframe = new JPanel();
 
     JButton searchbutton=new JButton("Submit");

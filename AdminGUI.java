@@ -1,30 +1,16 @@
-import static java.awt.Component.LEFT_ALIGNMENT;
-
-import java.awt.Component;
 
 import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
-import java.util.Scanner;
 import java.util.Vector;
 
-import javax.swing.text.DefaultFormatter;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.Document;
 
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -64,7 +50,9 @@ class AdminGUIFrame extends JFrame {
   public AdminGUIFrame() {
     super("Admin Menu");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    setSize(400,500);
+    setSize(500,500);
+    setResizable(false);
+    setLocationRelativeTo(null);
     mainframe = new JPanel();
     
     JButton addflightbutton=new JButton("Add Flight");

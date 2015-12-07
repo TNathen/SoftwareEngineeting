@@ -1,24 +1,5 @@
-import static java.awt.Component.LEFT_ALIGNMENT;
 import javax.swing.*;
-import java.awt.Dimension;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
-import javax.swing.text.DefaultFormatter;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.ButtonGroup;
-import javax.swing.JMenuBar;
 import javax.swing.JTable;
 
 
@@ -50,7 +31,9 @@ class AccountGUIFrame extends JFrame {
   public AccountGUIFrame(String email[]) {
     super("Account Menu");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setSize(400,300);
+    setSize(500,500);
+    setResizable(false);
+    setLocationRelativeTo(null);
     JPanel mainframe = new JPanel();
     
     JButton backbutton=new JButton("Back");

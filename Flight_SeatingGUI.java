@@ -1,27 +1,8 @@
-import static java.awt.Component.LEFT_ALIGNMENT;
 import java.awt.*;
 import javax.swing.*;
-import javax.imageio.ImageIO;
 import java.awt.Dimension;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
-import javax.swing.text.DefaultFormatter;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.ButtonGroup;
-import javax.swing.JMenuBar;
 
 
 public class Flight_SeatingGUI{
@@ -45,7 +26,9 @@ class Flight_SeatingGUIFrame extends JFrame
   {
     super("Flight Seating Assignment");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    setSize(400,350);
+    setSize(500,500);
+    setResizable(false);
+    setLocationRelativeTo(null);
     final JPanel mainframe = new JPanel();
     
     //JToggleButton r1c1=new JToggleButton("Row1 Col1");
